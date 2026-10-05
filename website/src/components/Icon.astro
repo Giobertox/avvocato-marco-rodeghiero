@@ -1,0 +1,10 @@
+---
+export type IconName = 'phone' | 'mail' | 'map-pin' | 'clock' | 'video' | 'languages' | 'menu' | 'x' | 'scale' | 'users-round' | 'house' | 'briefcase-business' | 'file-text' | 'user-round' | 'graduation-cap' | 'calendar-days' | 'chevron-down' | 'book-open';
+interface Props { name: IconName; class?: string; }
+const { name, class: className } = Astro.props;
+// Only trusted, locally vendored Lucide SVGs are embedded. No external requests.
+const files = import.meta.glob('../icons/*.svg', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
+const svg = files[`../icons/${name}.svg`];
+if (!svg) throw new Error(`Unknown local icon: ${name}`);
+---
+<span class:list={['icon', className]} aria-hidden="true" set:html={svg} />

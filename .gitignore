@@ -1,0 +1,15 @@
+# Local discovery/review documents are not part of the published website source.
+/GLOSSARY.md
+/MARCO-OPEN-QUESTIONS.md
+/PROJECT-REQUIREMENTS-DRAFT.md
+/QUESTIONS-FOR-MARCO.md
+/website/STAGING-REVIEW.md
+/*.zip
+
+# Generated files and local configuration.
+node_modules/
+dist/
+.astro/
+.sites-runtime/
+.env
+.env.*

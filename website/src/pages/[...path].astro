@@ -1,0 +1,13 @@
+---
+import SitePage from '../components/SitePage.astro';
+import { pagePaths, type Locale, type PageKey } from '../data/site';
+export function getStaticPaths() {
+  return (Object.keys(pagePaths) as Locale[]).flatMap(locale =>
+    (Object.entries(pagePaths[locale]) as [PageKey, string][]).map(([pageKey, url]) => ({
+      params: { path: url.replace(/^\/|\/$/g, '') }, props: { locale, pageKey },
+    }))
+  );
+}
+const { locale, pageKey } = Astro.props;
+---
+<SitePage locale={locale} pageKey={pageKey} />

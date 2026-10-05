@@ -1,0 +1,43 @@
+# Official Astro Pages workflow, adapted for the website/ subdirectory.
+# Reference: https://docs.astro.build/en/guides/deploy/github/
+name: Deploy Astro to GitHub Pages
+
+# Deployment is intentionally manual; pushing to main does not publish the draft.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install, build, verify, and upload site
+        uses: withastro/action@v6
+        with:
+          path: ./website
+          node-version: '22'
+          build-cmd: npm run build && npm run verify
+        env:
+          ASTRO_TELEMETRY_DISABLED: '1'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

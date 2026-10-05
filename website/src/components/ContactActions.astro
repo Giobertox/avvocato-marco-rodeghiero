@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { copy, studio, emailLink, type Locale } from '../data/site';
+interface Props { locale: Locale; light?: boolean; translation?: boolean; }
+const { locale, light = false, translation = false } = Astro.props;
+const t = copy[locale];
+---
+<div class:list={['actions', { 'actions-translation': translation }]}>
+  {translation ? <>
+    <a class:list={['button', { 'button-light': light }]} href={emailLink(t.translationSubject)}><Icon name="mail" />{t.translationRequest}</a>
+    <a class:list={['button', 'button-secondary', { 'button-outline-light': light }]} href={studio.phoneHref}><Icon name="phone" />{t.callShort}</a>
+  </> : <>
+    <a class:list={['button', { 'button-light': light }]} href={studio.phoneHref}><Icon name="phone" />{t.callShort}</a>
+    <a class:list={['button', 'button-secondary', { 'button-outline-light': light }]} href={emailLink()}><Icon name="mail" />{t.emailShort}</a>
+  </>}
+</div>
