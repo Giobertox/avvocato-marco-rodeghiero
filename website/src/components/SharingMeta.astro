@@ -1,0 +1,27 @@
+---
+import { withBase } from '../utils/paths';
+import { studio, type Locale } from '../data/site';
+import { sharingImage } from '../../config/sharing.mjs';
+interface Props { locale: Locale; title: string; description: string; url?: string; }
+const { locale, title, description, url = Astro.url.pathname } = Astro.props;
+const pageURL = new URL(url, Astro.site).href;
+const imageURL = new URL(withBase(sharingImage.path), Astro.site).href;
+const imageAlt = sharingImage.alt[locale];
+---
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={locale === 'it' ? 'it_IT' : 'en_GB'} />
+<meta property="og:site_name" content={studio.name} />
+<meta property="og:url" content={pageURL} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:secure_url" content={imageURL} />
+<meta property="og:image:type" content={sharingImage.type} />
+<meta property="og:image:width" content={String(sharingImage.width)} />
+<meta property="og:image:height" content={String(sharingImage.height)} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />

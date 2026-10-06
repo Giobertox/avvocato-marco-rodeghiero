@@ -1,10 +1,11 @@
 import { withBase } from '../utils/paths';
+import { practiceName } from '../../lib/favicons.mjs';
 
 export type Locale = 'it' | 'en';
 export type PageKey = 'home' | 'profile' | 'areas' | 'translations' | 'contact';
 
 export const studio = {
-  name: 'Studio Legale Avv. Marco Rodeghiero',
+  name: practiceName,
   phone: '+39 340 677 9043',
   phoneHref: 'tel:+393406779043',
   email: 'marcorodeghiero@gmail.com',

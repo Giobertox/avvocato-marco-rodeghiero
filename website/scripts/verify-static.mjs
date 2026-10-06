@@ -2,6 +2,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, join, relative, sep } from 'node:path';
 import config from '../astro.config.mjs';
 import { indexingEnabled, robotsContent } from '../config/seo.mjs';
+import sharp from 'sharp';
 
 const root = resolve('dist');
 const basePath = ('/' + (config.base || '/').replace(/^\/+|\/+$/g, '') + '/').replace(/^\/\/$/, '/');
@@ -12,14 +13,17 @@ async function filesIn(dir) {
 }
 const files = await filesIn(root);
 const faviconSource = await readFile(join(root, 'favicon.svg'), 'utf8');
+const sourceArtwork = await readFile(new URL('../src/branding/favicon.svg', import.meta.url), 'utf8');
 const iconBackground = faviconSource.match(/<rect\b[^>]*fill="([^"]+)"/)?.[1];
 const iconForeground = faviconSource.match(/<path\b[^>]*fill="([^"]+)"/)?.[1];
 const failures = [];
+if (faviconSource !== sourceArtwork) failures.push('Favicon exports are stale; run npm run icons.');
 let localReferences = 0;
 let externalScripts = 0;
 let localScripts = 0;
 let languageSwitches = 0;
 let cssReferences = 0;
+let sharingPreviews = 0;
 const pageTitles = new Set();
 const htmlFiles = files.filter(file => file.endsWith('.html'));
 const pagePairs = [
@@ -63,6 +67,37 @@ for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const path = relative(root, file).replaceAll('\\', '/');
   const sourceURL = pageURL(path);
+  const meta = key => {
+    const tags = [...html.matchAll(/<meta\b[^>]*>/g)].map(match => match[0])
+      .filter(tag => tag.includes(`property="${key}"`) || tag.includes(`name="${key}"`));
+    if (tags.length !== 1) failures.push(path + ': expected one ' + key + ' meta tag');
+    return tags[0]?.match(/content="([^"]*)"/)?.[1];
+  };
+  const title = html.match(/<title>(.*?)<\/title>/)?.[1];
+  const description = meta('description');
+  if (!description || meta('og:title') !== title || meta('twitter:title') !== title || meta('og:description') !== description || meta('twitter:description') !== description) failures.push(path + ': inconsistent sharing text');
+  const expectedShareURL = path === 'index.html' ? new URL(basePath + 'it/', site) : sourceURL;
+  if (meta('og:url') !== expectedShareURL.href) failures.push(path + ': incorrect sharing page URL');
+  if (meta('og:type') !== 'website' || meta('og:locale') !== (path.startsWith('en/') ? 'en_GB' : 'it_IT') || meta('og:site_name') !== 'Studio Legale Avv. Marco Rodeghiero') failures.push(path + ': incorrect sharing identity');
+  const image = meta('og:image');
+  const imageAlt = meta('og:image:alt');
+  if (!imageAlt || meta('twitter:image:alt') !== imageAlt || meta('twitter:card') !== 'summary_large_image' || meta('twitter:image') !== image || meta('og:image:secure_url') !== image) failures.push(path + ': incomplete sharing card');
+  let imageURL;
+  try { imageURL = new URL(image); } catch { failures.push(path + ': invalid sharing image URL'); }
+  if (!imageURL || imageURL.protocol !== 'https:' || imageURL.origin !== site.origin || !imageURL.pathname.startsWith(basePath)) failures.push(path + ': sharing image must be an absolute site HTTPS URL');
+  else {
+    await checkReference(image, sourceURL, path);
+    const imagePath = decodeURIComponent(imageURL.pathname.slice(basePath.length));
+    const imageFile = resolve(root, imagePath);
+    if (!imageFile.startsWith(root + sep) || !imagePath.endsWith('.png')) failures.push(path + ': sharing image must be a local PNG');
+    else {
+      try {
+        const actualImage = await sharp(imageFile).metadata();
+        if (actualImage.format !== 'png' || actualImage.width !== 1200 || actualImage.height !== 630 || meta('og:image:type') !== 'image/png' || meta('og:image:width') !== String(actualImage.width) || meta('og:image:height') !== String(actualImage.height)) failures.push(path + ': sharing dimensions/type do not match the image');
+      } catch { failures.push(path + ': sharing image could not be decoded'); }
+    }
+  }
+  sharingPreviews++;
   if (/localhost|127\.0\.0\.1|\[::1\]/i.test(html)) failures.push(path + ': localhost in generated HTML');
   if (!iconBackground || html.match(/<meta name="theme-color" content="([^"]+)"/)?.[1] !== iconBackground) failures.push(path + ': browser theme does not match favicon');
   const robots = [...html.matchAll(/<meta name="robots" content="([^"]*)"/g)];
@@ -86,7 +121,6 @@ for (const file of htmlFiles) {
     if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) failures.push(path + ': expected one h1');
     const language = path.startsWith('en/') ? 'en' : 'it';
     if (!html.includes('<html lang="' + language + '">')) failures.push(path + ': wrong language');
-    const title = html.match(/<title>(.*?)<\/title>/)?.[1];
     if (!title || pageTitles.has(title)) failures.push(path + ': absent or repeated page title');
     pageTitles.add(title);
     const pair = pagePairs.find(pair => pair.includes(path));
@@ -151,5 +185,5 @@ for (const file of files.filter(file => file.endsWith('.css'))) {
 }
 if (htmlFiles.length !== 12) failures.push('Expected 12 static pages; found ' + htmlFiles.length);
 if (languageSwitches !== 10) failures.push('Expected 10 equivalent-page language switches; found ' + languageSwitches);
-console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, localScripts, externalScripts, failures }, null, 2));
+console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, sharingPreviews, localScripts, externalScripts, failures }, null, 2));
 if (failures.length) process.exitCode = 1;

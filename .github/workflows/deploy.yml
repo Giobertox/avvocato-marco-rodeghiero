@@ -24,7 +24,7 @@ jobs:
         with:
           path: ./website
           node-version: '22'
-          build-cmd: npm run build && npm run verify
+          build-cmd: npm test && npm run build && npm run verify
         env:
           ASTRO_TELEMETRY_DISABLED: '1'
           SITE_INDEXING_ENABLED: 'false'

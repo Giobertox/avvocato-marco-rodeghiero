@@ -4,11 +4,12 @@ import Icon, { type IconName } from '../components/Icon.astro';
 import RobotsMeta from '../components/RobotsMeta.astro';
 import Brand from '../components/Brand.astro';
 import Favicons from '../components/Favicons.astro';
+import SharingMeta from '../components/SharingMeta.astro';
 import { withBase } from '../utils/paths';
 import { indexingEnabled } from '../../config/seo.mjs';
 import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
-interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; }
-const { locale, pageKey, title, description, forceNoIndex = false } = Astro.props;
+interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; sharingURL?: string; }
+const { locale, pageKey, title, description, forceNoIndex = false, sharingURL } = Astro.props;
 const t = copy[locale];
 const other = locale === 'it' ? 'en' : 'it';
 const navKeys: PageKey[] = ['home', 'areas', 'contact', 'translations', 'profile'];
@@ -19,14 +20,11 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} | Studio Legale Avv. Marco Rodeghiero</title>
+    <title>{title} | {studio.name}</title>
     <meta name="description" content={description} />
     <RobotsMeta forceNoIndex={forceNoIndex} />
     <Favicons locale={locale} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content={locale === 'it' ? 'it_IT' : 'en_GB'} />
+    <SharingMeta locale={locale} title={`${title} | ${studio.name}`} description={description} url={sharingURL} />
     <script is:inline src={withBase('/scripts/mobile-navigation.js')} defer></script>
   </head>
   <body>

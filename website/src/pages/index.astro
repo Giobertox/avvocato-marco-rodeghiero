@@ -1,7 +1,8 @@
 ---
-import { routes } from '../data/site';
+import { routes, copy, studio } from '../data/site';
 import RobotsMeta from '../components/RobotsMeta.astro';
 import Favicons from '../components/Favicons.astro';
+import SharingMeta from '../components/SharingMeta.astro';
 const destination = routes.it.home;
 const canonical = new URL(destination, Astro.site).href;
 ---
@@ -10,9 +11,11 @@ const canonical = new URL(destination, Astro.site).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Studio Legale Avv. Marco Rodeghiero</title>
+    <title>{studio.name}</title>
+    <meta name="description" content={copy.it.summary} />
     <RobotsMeta />
     <Favicons />
+    <SharingMeta locale="it" title={studio.name} description={copy.it.summary} url={destination} />
     <meta http-equiv="refresh" content={`2;url=${destination}`} />
     <link rel="canonical" href={canonical} />
   </head>

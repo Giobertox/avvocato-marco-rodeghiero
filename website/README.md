@@ -16,6 +16,7 @@ Open the local address printed by Astro, followed by `/avvocato-marco-rodeghiero
 
 ```powershell
 $env:ASTRO_TELEMETRY_DISABLED='1'
+npm test
 npm run build
 npm run verify
 npm run preview
@@ -33,7 +34,7 @@ To enable Pages when ready:
 
 1. Create a GitHub repository named `avvocato-marco-rodeghiero` and upload the project structure described above to its default branch, normally `main`. Include `website/package-lock.json`; exclude `node_modules/`, `dist/`, `.astro/`, local environment files and the presentation ZIP.
 2. Open the repository's **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**.
-3. The prepared workflow uses the official `withastro/action` with `path: ./website`, Node 22, and `npm run build && npm run verify`. It runs only through `workflow_dispatch`; pushing files does not deploy.
+3. The prepared workflow uses the official `withastro/action` with `path: ./website`, Node 22, and `npm test && npm run build && npm run verify`. It runs only through `workflow_dispatch`; pushing files does not deploy.
 4. Only when ready to publish, open **Actions → Deploy Astro to GitHub Pages → Run workflow**, select the default branch and run it. This step publishes the draft. No workflow has been run as part of local preparation.
 
 The build remains static, with no server adapter required. Astro prefixes its generated CSS assets with `base`. `src/utils/paths.ts` prefixes page links and public assets; use `withBase('/images/example.jpg')` for any future files placed in `public/images/`. Imported assets should use their generated Astro URLs. SVG icons are inline. Source Serif 4 regular and Source Sans 3 regular/semibold are bundled from pinned Fontsource packages using Latin subsets and `font-display: swap`. Astro generates their base-aware asset URLs. Modern browsers download approximately 51 KB of WOFF2 fonts; WOFF fallbacks are also exported. Adobe's font licences are in `public/licenses/`.
@@ -47,6 +48,10 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 - `src/data/site.ts`: contact details, route pairs, Italian/English copy, approved profile facts, and practice areas.
 - `src/utils/paths.ts`: the base-aware helper for page and public-asset links.
 - `config/seo.mjs` and `src/components/RobotsMeta.astro`: shared, build-time indexing policy.
+- `lib/favicons.mjs` and `src/branding/favicon.svg`: shared favicon policy, export generation and canonical artwork.
+- `config/sharing.mjs` and `src/components/SharingMeta.astro`: sharing image identity and localized preview metadata.
+- `scripts/generate-favicons.mjs` and `scripts/generate-sharing-image.mjs`: adapters that write committed public artwork exports.
+- `tests/favicons.test.mjs`: checks actual exported images, ICO frames and localized manifests.
 - `src/layouts/Layout.astro`: page metadata, navigation, language switch, draft banner, and footer.
 - `src/components/Brand.astro`: responsive display of the supplied logo, with a readable text identity on mobile.
 - `src/components/SitePage.astro`: the five page types.
@@ -64,7 +69,11 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 
 Following the owner's refinement, the website palette uses blue `#00204c`, lighter cream `#fcfaf5`, near-black `#202428`, slate `#52616c` and white. The supplied logo's own colours are retained. Blue-grey surfaces group office details, active navigation and supporting content; contact invitations use blue with light text. Practice-area icons and jump links repeat related navy, steel-blue and slate-blue accents across both languages; labels and distinct icons identify each area independently of colour. Translations use a muted blue accent. Shared colour tokens also cover hover/pressed states, control borders, selection, status labels and inverse text; focus outlines use blue on light surfaces and light cream in the blue contact band. Existing font/button sizes, motion preferences and spacing remain in place.
 
-The favicon is a simplified MR mark inspired by the brand, with light cream outlined serif letters on `#00204c` blue. It is a separate small-format icon, not a tracing of the full logo. `public/favicon.svg` contains self-contained vector paths, with no font dependency. `npm run icons` exports the ICO (16/32/48 px), browser PNGs (16/32 px), an opaque Apple touch icon (180 px), phone icons (192/512 px), and two locale-specific manifests using Sharp from the existing Astro toolchain. These outputs are committed; normal builds do not regenerate them. Relative manifest paths preserve the GitHub Pages base and the chosen language. The manifests use browser display mode and do not add an offline app or service worker. `src/components/Favicons.astro` shares base-aware links across every page, including the root redirect and 404. Favicon, manifest and manifest-icon URLs use the `mr3` version to refresh the earlier palette assets; browser theme colour and manifest background/theme colours match the revised palette. Static verification checks these theme values, locale start URLs and mobile icon references.
+The favicon is a simplified MR mark inspired by the brand, with light cream outlined serif letters on `#00204c` blue. Its canonical artwork is `src/branding/favicon.svg`, containing self-contained vector paths with no font dependency. Edit this source, then run `npm run icons`; `public/favicon.svg` is a generated export. `lib/favicons.mjs` owns colour extraction from that artwork, export sizes, localized names, cache version, head links, manifest construction and ICO encoding. Astro rendering and the CLI use this same module. Sharp loads only during export generation and adds no browser code. The supplied logo and existing favicon appearance are preserved.
+
+`npm run icons` writes the SVG, ICO (16/32/48 px), browser PNGs (16/32 px), opaque Apple touch icon (180 px), phone icons (192/512 px), and two locale-specific manifests. These outputs are committed; normal builds do not regenerate them. Relative manifest paths preserve the GitHub Pages base and chosen language. Browser display mode adds no offline app or service worker. `Favicons.astro` prefixes the shared links across every page, including the root redirect and 404. The existing `mr3` URLs are retained. `npm test` exercises actual exported files with a different SVG palette, including PNG dimensions/backgrounds, decoded ICO frames, and manifest paths for both root and project hosting. Static verification independently checks the actual exported SVG, theme values, manifests and mobile icon references; it rejects stale artwork exports.
+
+Link previews use `public/branding/studio-sharing-v1.png`, a 1200 x 630 PNG with the supplied blue logo centred on a near-white background. The artwork retains its colours and proportions and fits inside a centre-cropped square thumbnail. Regenerate it with `npm run sharing-image`. Sharing-image identity and localized descriptions live in `config/sharing.mjs`; its filename version is separate from favicon caching. `SharingMeta.astro` writes Open Graph and large-image card metadata directly into HTML, with absolute HTTPS URLs based on Astro's configured site/base and actual image dimensions/type. Each language keeps its page title and description. The bare project URL also declares a preview and the existing Italian destination, without relying on crawlers following its timed redirect. The 404 declares its public `/404.html` identity. `npm run verify` checks all twelve previews and decodes the referenced image. Messaging apps control final rendering and cache refresh; the website supplies the image and metadata without third-party scripts or messaging integrations.
 
 Icon link conventions follow [MDN's icon documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel#icon); the Apple touch icon and short home-screen title follow [Apple's Web Clip guidance](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html).
 
