@@ -11,6 +11,9 @@ async function filesIn(dir) {
   return (await Promise.all(entries.map(entry => entry.isDirectory() ? filesIn(join(dir, entry.name)) : [join(dir, entry.name)]))).flat();
 }
 const files = await filesIn(root);
+const faviconSource = await readFile(join(root, 'favicon.svg'), 'utf8');
+const iconBackground = faviconSource.match(/<rect\b[^>]*fill="([^"]+)"/)?.[1];
+const iconForeground = faviconSource.match(/<path\b[^>]*fill="([^"]+)"/)?.[1];
 const failures = [];
 let localReferences = 0;
 let externalScripts = 0;
@@ -60,6 +63,7 @@ for (const file of htmlFiles) {
   const path = relative(root, file).replaceAll('\\', '/');
   const sourceURL = pageURL(path);
   if (/localhost|127\.0\.0\.1|\[::1\]/i.test(html)) failures.push(path + ': localhost in generated HTML');
+  if (!iconBackground || html.match(/<meta name="theme-color" content="([^"]+)"/)?.[1] !== iconBackground) failures.push(path + ': browser theme does not match favicon');
   const robots = [...html.matchAll(/<meta name="robots" content="([^"]*)"/g)];
   if (robots.length !== 1 || robots[0][1] !== robotsContent(path === '404.html')) failures.push(path + ': incorrect indexing policy');
   if (path === 'it/profilo/index.html' || path === 'en/profile/index.html') {
@@ -110,6 +114,15 @@ for (const file of htmlFiles) {
       for (const candidate of match[1].split(',')) await checkReference(candidate.trim().split(/\s+/)[0], sourceURL, path);
     }
   }
+}
+for (const locale of ['it', 'en']) {
+  const path = `site-${locale}.webmanifest`;
+  const manifest = JSON.parse(await readFile(join(root, path), 'utf8'));
+  const manifestURL = new URL(basePath + path, site);
+  if (manifest.theme_color !== iconBackground || manifest.background_color !== iconForeground) failures.push(path + ': colours do not match favicon');
+  if (manifest.lang !== locale || new URL(manifest.start_url, manifestURL).pathname !== basePath + locale + '/' || new URL(manifest.scope, manifestURL).pathname !== basePath) failures.push(path + ': wrong locale, start URL or scope');
+  await checkReference(manifest.start_url, manifestURL, path);
+  for (const icon of manifest.icons) await checkReference(icon.src, manifestURL, path);
 }
 for (const file of files.filter(file => file.endsWith('.css'))) {
   const css = await readFile(file, 'utf8');

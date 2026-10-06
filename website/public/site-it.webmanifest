@@ -5,17 +5,17 @@
   "start_url": "./it/",
   "scope": "./",
   "display": "browser",
-  "background_color": "#faf8f3",
-  "theme_color": "#6a0d0f",
+  "background_color": "#fcfaf5",
+  "theme_color": "#00204c",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "./icons/icon-192.png?v=mr3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "./icons/icon-512.png?v=mr3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

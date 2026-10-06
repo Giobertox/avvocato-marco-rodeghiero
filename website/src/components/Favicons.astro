@@ -3,14 +3,14 @@ import { withBase } from '../utils/paths';
 import type { Locale } from '../data/site';
 interface Props { locale?: Locale; }
 const { locale = 'it' } = Astro.props;
-// Version the icon URLs so browsers can refresh the earlier single-letter favicon.
-const icon = (path: string) => `${withBase(path)}?v=mr1`;
+// Refresh cached icons after the revised blue-and-light-cream palette update.
+const icon = (path: string) => `${withBase(path)}?v=mr3`;
 ---
-<meta name="theme-color" content="#6a0d0f" />
+<meta name="theme-color" content="#00204c" />
 <meta name="apple-mobile-web-app-title" content={locale === 'it' ? 'MR Studio Legale' : 'MR Legal Practice'} />
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href={icon('/favicon.ico')} />
 <link rel="icon" type="image/png" sizes="16x16" href={icon('/icons/favicon-16.png')} />
 <link rel="icon" type="image/png" sizes="32x32" href={icon('/icons/favicon-32.png')} />
 <link rel="icon" type="image/svg+xml" sizes="any" href={icon('/favicon.svg')} />
 <link rel="apple-touch-icon" sizes="180x180" href={icon('/icons/apple-touch-icon.png')} />
-<link rel="manifest" href={withBase(`/site-${locale}.webmanifest`)} />
+<link rel="manifest" href={icon(`/site-${locale}.webmanifest`)} />

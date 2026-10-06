@@ -7,7 +7,7 @@ const source = await readFile('public/favicon.svg');
 await mkdir('public/icons', { recursive: true });
 async function png(size, opaque = false) {
   let image = sharp(source).resize(size, size);
-  if (opaque) image = image.flatten({ background: '#6a0d0f' });
+  if (opaque) image = image.flatten({ background: '#00204c' });
   return image.png().toBuffer();
 }
 for (const [name, size, opaque] of [
@@ -46,10 +46,10 @@ for (const locale of ['it', 'en']) {
     start_url: `./${locale}/`,
     scope: './',
     display: 'browser',
-    background_color: '#faf8f3',
-    theme_color: '#6a0d0f',
+    background_color: '#fcfaf5',
+    theme_color: '#00204c',
     icons: [192, 512].map(size => ({
-      src: `./icons/icon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any',
+      src: `./icons/icon-${size}.png?v=mr3`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any',
     })),
   }, null, 2) + '\n');
 }
