@@ -66,6 +66,10 @@ The favicon is a simplified MR mark inspired by the brand, with light cream outl
 
 Icon link conventions follow [MDN's icon documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel#icon); the Apple touch icon and short home-screen title follow [Apple's Web Clip guidance](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html).
 
+The homepage uses the supplied `public/branding/vicenza_BG.webp` (1400 × 500 px, approximately 90 KB) behind the existing content grid in both languages. A CSS grayscale filter and navy gradient keep the Basilica and clock tower recognisable while providing contrast for white text, supporting copy and light contact buttons. The image is decorative, uses the configured base path, declares intrinsic dimensions and receives high fetch priority; it adds no script or external request. Mobile cropping favours the architecture. The logo artwork and existing fonts remain unchanged.
+
+The shared header is sticky on desktop and mobile, with an opaque near-white background, a subtle shadow, reduced spacing and a smaller displayed logo. The native mobile disclosure remains usable without JavaScript; an expanded header scrolls within the viewport on short screens. Root scroll padding reserves space above fragment targets, including practice areas and contact details, and the fixed keyboard skip link appears above the header. Reduced-motion preferences remain supported; printing uses a static header and removes the hero photo treatment.
+
 ## Staging limitations
 
 Indexing defaults to disabled in `config/seo.mjs`. Every HTML page, including the root redirect and 404, receives `noindex, nofollow`. The Pages workflow explicitly sets `SITE_INDEXING_ENABLED: 'false'`; a production build does not automatically enable indexing. `robots.txt` allows crawling so crawlers can read the meta tags. On project Pages, the file under the repository path is informational: crawlers use robots.txt at the host root. Indexing instructions are not access controls.
