@@ -27,6 +27,7 @@ jobs:
           build-cmd: npm run build && npm run verify
         env:
           ASTRO_TELEMETRY_DISABLED: '1'
+          SITE_INDEXING_ENABLED: 'false'
 
   deploy:
     needs: build

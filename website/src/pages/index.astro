@@ -1,4 +1,18 @@
 ---
 import { routes } from '../data/site';
-return Astro.redirect(routes.it.home);
+import RobotsMeta from '../components/RobotsMeta.astro';
+const destination = routes.it.home;
+const canonical = new URL(destination, Astro.site).href;
 ---
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio Legale Avv. Marco Rodeghiero</title>
+    <RobotsMeta />
+    <meta http-equiv="refresh" content={`2;url=${destination}`} />
+    <link rel="canonical" href={canonical} />
+  </head>
+  <body><a href={destination}>Vai al sito in italiano · Continue to the Italian website</a></body>
+</html>

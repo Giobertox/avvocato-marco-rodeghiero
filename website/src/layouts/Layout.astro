@@ -1,10 +1,12 @@
 ---
 import '../styles/global.css';
 import Icon, { type IconName } from '../components/Icon.astro';
+import RobotsMeta from '../components/RobotsMeta.astro';
+import { indexingEnabled } from '../../config/seo.mjs';
 import { withBase } from '../utils/paths';
 import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
-interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; }
-const { locale, pageKey, title, description } = Astro.props;
+interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; }
+const { locale, pageKey, title, description, forceNoIndex = false } = Astro.props;
 const t = copy[locale];
 const other = locale === 'it' ? 'en' : 'it';
 const navKeys: PageKey[] = ['home', 'areas', 'contact', 'translations', 'profile'];
@@ -17,7 +19,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} | Studio Legale Avv. Marco Rodeghiero</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <RobotsMeta forceNoIndex={forceNoIndex} />
     <meta name="theme-color" content="#152f3a" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <meta property="og:title" content={title} />
@@ -27,7 +29,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
   </head>
   <body>
     <a class="skip-link" href="#main">{t.skip}</a>
-    <div class="draft-banner"><div class="container draft-inner" title={t.stageDetail}><strong>{t.stage}</strong><span>{locale === 'it' ? 'In revisione' : 'Under review'}</span></div></div>
+    {!indexingEnabled && <div class="draft-banner"><div class="container draft-inner" title={t.stageDetail}><strong>{t.stage}</strong><span>{locale === 'it' ? 'In revisione' : 'Under review'}</span></div></div>}
     <header class="site-header">
       <div class="container header-inner">
         <a class="wordmark" href={routes[locale].home} aria-label={studio.name}><strong>Marco Rodeghiero</strong><span>Studio legale · Avvocato</span></a>

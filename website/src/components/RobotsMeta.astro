@@ -1,0 +1,6 @@
+---
+import { robotsContent } from '../../config/seo.mjs';
+interface Props { forceNoIndex?: boolean; }
+const { forceNoIndex = false } = Astro.props;
+---
+<meta name="robots" content={robotsContent(forceNoIndex)} />

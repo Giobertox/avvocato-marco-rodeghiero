@@ -36,7 +36,7 @@ To enable Pages when ready:
 3. The prepared workflow uses the official `withastro/action` with `path: ./website`, Node 22, and `npm run build && npm run verify`. It runs only through `workflow_dispatch`; pushing files does not deploy.
 4. Only when ready to publish, open **Actions → Deploy Astro to GitHub Pages → Run workflow**, select the default branch and run it. This step publishes the draft. No workflow has been run as part of local preparation.
 
-The build remains static, with no server adapter required. Astro prefixes its generated CSS assets with `base`. `src/utils/paths.ts` prefixes page links and public assets; use `withBase('/images/example.jpg')` for any future files placed in `public/images/`. Imported assets should use their generated Astro URLs. The current SVG icons are inline and fonts are installed system fonts, so neither requires separate network assets.
+The build remains static, with no server adapter required. Astro prefixes its generated CSS assets with `base`. `src/utils/paths.ts` prefixes page links and public assets; use `withBase('/images/example.jpg')` for any future files placed in `public/images/`. Imported assets should use their generated Astro URLs. SVG icons are inline. Source Serif 4 regular and Source Sans 3 regular/semibold are bundled from pinned Fontsource packages using Latin subsets and `font-display: swap`. Astro generates their base-aware asset URLs. Modern browsers download approximately 51 KB of WOFF2 fonts; WOFF fallbacks are also exported. Adobe's font licences are in `public/licenses/`.
 
 `npm run verify` checks all generated internal links/assets and fragments against the configured base, all ten equivalent-page language switches, the root redirect, and CSS asset references. It also rejects localhost URLs in generated HTML/CSS. The static root redirect goes to `/avvocato-marco-rodeghiero/it/`; the generated `404.html` has base-aware recovery links.
 
@@ -46,6 +46,7 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 
 - `src/data/site.ts`: contact details, route pairs, Italian/English copy, and practice areas.
 - `src/utils/paths.ts`: the base-aware helper for page and public-asset links.
+- `config/seo.mjs` and `src/components/RobotsMeta.astro`: shared, build-time indexing policy.
 - `src/layouts/Layout.astro`: page metadata, navigation, language switch, draft banner, and footer.
 - `src/components/SitePage.astro`: the five page types.
 - `src/components/ContactBand.astro`: shared contact invitation.
@@ -56,12 +57,14 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 
 ## Staging limitations
 
-Every content page has `noindex, nofollow`; `robots.txt` disallows crawling. These are indexing instructions, not access controls. Use private hosting or host-level password protection if restricting access to a deployed staging copy.
+Indexing defaults to disabled in `config/seo.mjs`. Every HTML page, including the root redirect and 404, receives `noindex, nofollow`. The Pages workflow explicitly sets `SITE_INDEXING_ENABLED: 'false'`; a production build does not automatically enable indexing. `robots.txt` allows crawling so crawlers can read the meta tags. On project Pages, the file under the repository path is informational: crawlers use robots.txt at the host root. Indexing instructions are not access controls.
+
+At the approved production-domain launch, update Astro's `site` and `base`, set the production build's `SITE_INDEXING_ENABLED` to `'true'`, and complete canonical/hreflang/sitemap metadata. The flag changes ordinary pages and the root redirect to `index, follow` and removes the draft banner; 404 always remains `noindex, nofollow`. Rebuild and run `npm run verify` with the same flag. Changing it after a build has no effect on the exported HTML. Keep the GitHub Pages working draft's flag false.
 
 The root redirect is an HTML redirect in the static export, supported by GitHub Pages without server redirect rules. Final canonical URLs, hreflang, sitemap and verified structured data are deferred until the final domain and approved content exist.
 
-Appointment requests open an email draft; they do not book an appointment. Telephone/email actions are real contact links. No analytics, embedded map, external fonts, tracking code or contact form are included.
+Appointment requests open an email draft; they do not book an appointment. Telephone/email actions are real contact links. No analytics, embedded map, third-party font requests, tracking code or contact form are included.
 
-The layout starts with mobile styles and expands at larger widths. The mobile menu uses native HTML disclosure, opens within the page, and works without JavaScript. Service rows are full-width on phones and use two columns on larger screens. Contact and translation enquiry actions appear near the top of their pages.
+The layout starts with mobile styles and expands at larger widths. The mobile menu uses native HTML disclosure, opens within the page, and works without JavaScript. Service rows use fine dividers, are full-width on phones, and use two columns on larger screens. Crisis/insolvency has its own group; contracts sit with civil law and debt recovery. Existing page URLs and practice-area fragments are preserved. Translations appear as a supplementary service. Profile qualifications, education dates, roles and portraits awaiting confirmation are omitted from rendered pages; the research remains in local review notes. Contact and translation enquiry actions appear near the top of their pages.
 
 Before a public launch, complete the professional registration and applicable notices, approve Italian and English copy, confirm every provisional profile detail, and update the staging/indexing settings together.

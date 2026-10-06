@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+# Crawling must be allowed so search engines can read the noindex meta tags.
+# On project Pages this subdirectory file is informational; robots.txt is host-root scoped.
+Disallow:

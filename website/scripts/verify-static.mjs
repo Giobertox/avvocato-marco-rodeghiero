@@ -1,6 +1,7 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, join, relative, sep } from 'node:path';
 import config from '../astro.config.mjs';
+import { indexingEnabled, robotsContent } from '../config/seo.mjs';
 
 const root = resolve('dist');
 const basePath = ('/' + (config.base || '/').replace(/^\/+|\/+$/g, '') + '/').replace(/^\/\/$/, '/');
@@ -59,9 +60,13 @@ for (const file of htmlFiles) {
   const path = relative(root, file).replaceAll('\\', '/');
   const sourceURL = pageURL(path);
   if (/localhost|127\.0\.0\.1|\[::1\]/i.test(html)) failures.push(path + ': localhost in generated HTML');
+  const robots = [...html.matchAll(/<meta name="robots" content="([^"]*)"/g)];
+  if (robots.length !== 1 || robots[0][1] !== robotsContent(path === '404.html')) failures.push(path + ': incorrect indexing policy');
+  if (path === 'it/profilo/index.html' || path === 'en/profile/index.html') {
+    if (/LinkedIn|1997|2003|2004|2007|2010|Da confermare|Awaiting|portrait-placeholder|pending-box/.test(html)) failures.push(path + ': unconfirmed profile information is public');
+  }
   if (path !== 'index.html') {
     if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) failures.push(path + ': expected one h1');
-    if (!/<meta name="robots" content="noindex, nofollow"/.test(html)) failures.push(path + ': missing staging noindex');
     const language = path.startsWith('en/') ? 'en' : 'it';
     if (!html.includes('<html lang="' + language + '">')) failures.push(path + ': wrong language');
     const title = html.match(/<title>(.*?)<\/title>/)?.[1];
@@ -79,6 +84,8 @@ for (const file of htmlFiles) {
     const refresh = html.match(/<meta\b[^>]*http-equiv="refresh"[^>]*content="[^"]*url=([^"]*)"/i)?.[1];
     if (refresh !== basePath + 'it/') failures.push(path + ': root redirect has wrong destination');
     if (refresh) await checkReference(refresh, sourceURL, path);
+    const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1];
+    if (canonical !== new URL(basePath + 'it/', site).href) failures.push(path + ': incorrect redirect canonical');
   }
   const scripts = html.match(/<(?:script|iframe)\b[^>]+(?:src=|srcdoc=)/gi) || [];
   externalScripts += scripts.length;
@@ -108,5 +115,5 @@ for (const file of files.filter(file => file.endsWith('.css'))) {
 }
 if (htmlFiles.length !== 12) failures.push('Expected 12 static pages; found ' + htmlFiles.length);
 if (languageSwitches !== 10) failures.push('Expected 10 equivalent-page language switches; found ' + languageSwitches);
-console.log(JSON.stringify({ basePath, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, externalScripts, failures }, null, 2));
+console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, externalScripts, failures }, null, 2));
 if (failures.length) process.exitCode = 1;

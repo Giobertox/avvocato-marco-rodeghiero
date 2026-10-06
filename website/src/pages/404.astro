@@ -3,4 +3,4 @@ import Layout from '../layouts/Layout.astro';
 import { copy, routes } from '../data/site';
 const t = copy.it;
 ---
-<Layout locale="it" pageKey="home" title="Pagina non trovata" description={t.notFoundText}><section class="page-heading container"><p class="eyebrow">404</p><h1>{t.notFound}</h1><p class="page-lead">{t.notFoundText}</p><div class="actions"><a class="button" href={routes.it.home}>{t.back}</a><a class="text-link" href={routes.en.home} lang="en">English homepage</a></div></section></Layout>
+<Layout locale="it" pageKey="home" title="Pagina non trovata" description={t.notFoundText} forceNoIndex><section class="page-heading container"><p class="eyebrow">404</p><h1>{t.notFound}</h1><p class="page-lead">{t.notFoundText}</p><div class="actions"><a class="button" href={routes.it.home}>{t.back}</a><a class="text-link" href={routes.en.home} lang="en">English homepage</a></div></section></Layout>
