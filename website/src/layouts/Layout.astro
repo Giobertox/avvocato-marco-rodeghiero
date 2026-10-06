@@ -3,8 +3,8 @@ import '../styles/global.css';
 import Icon, { type IconName } from '../components/Icon.astro';
 import RobotsMeta from '../components/RobotsMeta.astro';
 import Brand from '../components/Brand.astro';
+import Favicons from '../components/Favicons.astro';
 import { indexingEnabled } from '../../config/seo.mjs';
-import { withBase } from '../utils/paths';
 import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
 interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; }
 const { locale, pageKey, title, description, forceNoIndex = false } = Astro.props;
@@ -21,8 +21,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
     <title>{title} | Studio Legale Avv. Marco Rodeghiero</title>
     <meta name="description" content={description} />
     <RobotsMeta forceNoIndex={forceNoIndex} />
-    <meta name="theme-color" content="#6a0d0f" />
-    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <Favicons locale={locale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
