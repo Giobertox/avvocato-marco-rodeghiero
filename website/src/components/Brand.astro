@@ -3,13 +3,11 @@ import { withBase } from '../utils/paths';
 import { routes, studio, type Locale } from '../data/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
-const logo = withBase('/branding/studio-logo-blue.webp');
-const mobileLogo = withBase('/branding/studio-mark-blue.webp');
+const mark = withBase('/branding/studio-mark-blue.webp');
 ---
 <a class="wordmark" href={routes[locale].home} aria-label={studio.name}>
-  <picture class="brand-artwork">
-    <source media="(min-width: 1000px)" srcset={logo} width="841" height="400" />
-    <img src={mobileLogo} width="372" height="150" alt="" decoding="async" />
-  </picture>
+  <span class="brand-artwork">
+    <img src={mark} width="372" height="150" alt="" decoding="async" />
+  </span>
   <span class="wordmark-copy"><strong>Avv. Marco Rodeghiero</strong><span>{locale === 'it' ? 'Studio legale' : 'Legal practice'}</span></span>
 </a>

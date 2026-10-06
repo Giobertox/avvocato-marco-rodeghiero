@@ -74,7 +74,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .wordmark { display: flex; flex: 1 1 min-content; align-items: center; gap: 8px; min-height: 48px; text-decoration: none; min-width: min-content; max-width: 100%; }
 /* Display the supplied blue artwork unchanged, without filters or blending.
    The header matches the image's near-white background. */
-/* Use the tightly cropped, supplied mark on mobile and the full logo on desktop. */
+/* Pair the supplied mark with readable text at every viewport size. */
 .brand-artwork { display: block; width: 84px; flex: 0 0 84px; }
 .brand-artwork img { display: block; width: 100%; height: auto; }
 .wordmark-copy { min-width: min-content; overflow-wrap: normal; }
@@ -108,7 +108,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .mobile-nav nav a:active { background: var(--pale-pressed); color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); transition-duration: 60ms; }
 .home-hero { position: relative; isolation: isolate; background: var(--accent); color: var(--white); }
 /* Keep the Basilica and clock tower in the phone crop; tint the photo, not the logo. */
-.hero-background { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 42% center; filter: grayscale(1); }
+.hero-background { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 38% center; filter: grayscale(1); }
 .home-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #001430e0, #00204cc2); }
 .hero { padding-top: 36px; padding-bottom: 36px; }
 .home-hero .eyebrow, .home-hero .hero-summary, .home-hero .facts, .home-hero .small-note, .home-hero .hero-office span, .home-hero .hero-office p { color: var(--inverse-muted); }
@@ -315,8 +315,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 @media (min-width: 1000px) {
   :root { --header-clearance: 7.5rem; }
   .header-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding-block: 8px; }
-  .brand-artwork { width: 160px; flex-basis: 160px; }
-  .wordmark-copy { display: none; }
+  .brand-artwork { width: 92px; flex-basis: 92px; }
   .main-nav { display: flex; align-items: center; justify-content: end; gap: 24px; }
   .main-nav a { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; font-size: 1rem; text-decoration: none; border-bottom: 2px solid transparent; }
   .main-nav a[aria-current] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
