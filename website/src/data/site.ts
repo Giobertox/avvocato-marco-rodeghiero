@@ -12,6 +12,7 @@ export const studio = {
   address: 'Contrà Pusterla 12',
   city: '36100 Vicenza (VI), Italia',
   maps: 'https://www.google.com/maps/search/?api=1&query=Contr%C3%A0%20Pusterla%2012%2C%20Vicenza%2C%20Italia',
+  linkedin: 'https://www.linkedin.com/in/marco-rodeghiero-70214328/',
 };
 
 // Page generation needs paths without the base; rendered links need the base.
@@ -38,19 +39,20 @@ export const copy = {
     areaEyebrow: 'L’attività dello Studio', areaTitle: 'Aree di attività', areaLink: 'Tutte le aree di attività',
     profileEyebrow: 'Il professionista', profileTitle: 'Marco Rodeghiero', profileText: 'Avvocato a Vicenza, con attività nelle aree del diritto civile e traduzioni giuridiche tra italiano e inglese.', profileLink: 'Conosci il profilo',
     translationEyebrow: 'Italiano e inglese', translationTitle: 'Traduzioni giuridiche', translationText: 'Traduzioni di testi giuridici dall’italiano all’inglese e dall’inglese all’italiano.', translationLink: 'Il servizio di traduzione',
-    contactEyebrow: 'Contatti', contactTitle: 'Concordiamo un colloquio', contactText: 'Colloqui in Studio o da remoto. Gli appuntamenti vengono confermati direttamente dallo Studio.',
+    contactEyebrow: 'Contatti', contactTitle: 'Concordiamo un colloquio', contactText: 'Colloqui in Studio o da remoto, solo su appuntamento. Gli appuntamenti vengono confermati direttamente dallo Studio.',
     heroLead: 'Assistenza in diritto civile, crisi d’impresa, immobili, famiglia e successioni.', languageLabel: 'Italiano e inglese', meetingLabel: 'In Studio e da remoto',
     callShort: 'Chiama', emailShort: 'Scrivi un’email', translationRequest: 'Richiedi una traduzione', directionsShort: 'Indicazioni stradali',
     emailActionHint: 'Email: si apre la tua app di posta, se configurata.',
     menuTitle: 'Esplora il sito', appointmentNote: 'Si apre l’app di posta. L’appuntamento deve essere confermato dallo Studio.', practiceIntro: 'Seleziona un’area per conoscere le attività dello Studio.',
-    contactIntro: 'Telefona o scrivi per concordare un appuntamento.', contactDetails: 'Contatti diretti', languageLevels: 'Livelli linguistici da confermare.',
+    contactIntro: 'Si riceve solo su appuntamento. Telefona o scrivi per concordare un colloquio.', contactDetails: 'Contatti diretti', byAppointment: 'Si riceve solo su appuntamento.',
     addressLabel: 'Dove siamo', hoursLabel: 'Orari dello Studio', weekdays: 'Lunedì – venerdì', weekend: 'Sabato e domenica', closed: 'Chiuso', maps: 'Apri le indicazioni su Google Maps', mapsNote: 'Collegamento esterno al servizio Google Maps.',
     ordinaryEmail: 'Email', pecLabel: 'PEC · posta elettronica certificata', pecNote: 'Indirizzo PEC distinto dall’email per i contatti ordinari.', phoneLabel: 'Telefono', remoteTitle: 'In Studio o da remoto', remoteText: 'La modalità del colloquio si concorda al momento della richiesta.',
-    profileLead: 'Avvocato a Vicenza. Attività legale e traduzioni giuridiche in italiano e inglese.', bio: 'Marco Rodeghiero svolge la propria attività di avvocato a Vicenza, nello Studio di Contrà Pusterla 12.',
+    profileLead: 'Avvocato a Vicenza. Attività legale e traduzioni giuridiche in italiano e inglese.', bio: 'Marco Rodeghiero svolge la propria attività di avvocato a Vicenza, nello Studio di Contrà Pusterla 12. Il suo percorso presso lo Studio Legale Avv. Marco Rodeghiero inizia nel marzo 2010.',
+    profileEducation: 'Formazione', profileExperience: 'Esperienze professionali', profileSource: 'Profilo professionale su LinkedIn',
     provisional: 'Da confermare con Marco', languages: 'Lingue di lavoro',
     profileFocus: 'Attività dello Studio', profileFocusText: 'Lo Studio si occupa di diritto civile e contratti, recupero crediti, crisi d’impresa e insolvenza, immobili, famiglia e successioni.',
-    profileLanguagesText: 'I colloqui possono svolgersi in italiano o in inglese. Lo Studio offre inoltre traduzioni di testi giuridici tra le due lingue.',
-    profileMeeting: 'Il primo contatto', profileMeetingText: 'Puoi telefonare o scrivere per descrivere la questione e concordare un colloquio in Studio o da remoto.',
+    profileLanguagesText: 'Italiano: livello madrelingua o bilingue. Inglese: competenza professionale lavorativa. I colloqui possono svolgersi in entrambe le lingue; lo Studio offre inoltre traduzioni giuridiche tra italiano e inglese.',
+    profileMeeting: 'Il primo contatto', profileMeetingText: 'Si riceve solo su appuntamento. Puoi telefonare o scrivere per descrivere la questione e concordare un colloquio in Studio o da remoto.',
     supplementary: 'Servizio complementare', situationLabel: 'Quando contattare lo Studio',
     areasLead: 'Le aree in cui lo Studio può assisterti.', areasIntro: 'Le principali situazioni trattate dallo Studio. Un primo contatto permette di descrivere la questione e valutare l’assistenza richiesta.',
     translationLead: 'Il significato giuridico, in un’altra lingua.', translationIntro: 'Traduzioni di testi giuridici dall’italiano all’inglese e dall’inglese all’italiano. Per valutare una richiesta, contatta direttamente lo Studio.', translationDirection: 'Italiano ↔ Inglese', translationScope: 'Un servizio dedicato', translationScopeText: 'Tipologia del testo, finalità della traduzione, tempi e modalità vengono concordati direttamente con lo Studio.', translationLimits: 'Formalità e requisiti', translationLimitsText: 'Indica l’uso previsto della traduzione e gli eventuali requisiti richiesti dal destinatario. Modalità e formalità devono essere concordate con lo Studio prima dell’incarico.',
@@ -68,25 +70,60 @@ export const copy = {
     areaEyebrow: 'The practice', areaTitle: 'Practice areas', areaLink: 'All practice areas',
     profileEyebrow: 'Your lawyer', profileTitle: 'Marco Rodeghiero', profileText: 'A lawyer practising in Vicenza, working in Italian civil law and translating legal texts between Italian and English.', profileLink: 'Read the profile',
     translationEyebrow: 'Italian and English', translationTitle: 'Legal translations', translationText: 'Translation of legal texts from Italian into English and from English into Italian.', translationLink: 'About legal translation',
-    contactEyebrow: 'Contact', contactTitle: 'Arrange a conversation', contactText: 'Meet in person or remotely. Appointments are confirmed directly by the practice.',
+    contactEyebrow: 'Contact', contactTitle: 'Arrange a conversation', contactText: 'Meet in person or remotely, by appointment only. Appointments are confirmed directly by the practice.',
     heroLead: 'Assistance with Italian civil law, business distress, property, family and inheritance.', languageLabel: 'Italian and English', meetingLabel: 'In person and remotely',
     callShort: 'Call', emailShort: 'Send an email', translationRequest: 'Request a translation', directionsShort: 'Get directions',
     emailActionHint: 'Email opens your email app, if configured.',
     menuTitle: 'Explore the website', appointmentNote: 'Opens your email app. Your appointment must be confirmed by the practice.', practiceIntro: 'Select an area to learn about the practice.',
-    contactIntro: 'Call or email to arrange an appointment.', contactDetails: 'Direct contact details', languageLevels: 'Proficiency wording awaiting confirmation.',
+    contactIntro: 'Meetings are by appointment only. Call or email to arrange a conversation.', contactDetails: 'Direct contact details', byAppointment: 'By appointment only.',
     addressLabel: 'Find us', hoursLabel: 'Office hours', weekdays: 'Monday – Friday', weekend: 'Saturday and Sunday', closed: 'Closed', maps: 'Get directions on Google Maps', mapsNote: 'External link to the Google Maps service.',
     ordinaryEmail: 'Email', pecLabel: 'PEC · Italian certified email', pecNote: 'The PEC address is separate from the email used for ordinary enquiries.', phoneLabel: 'Telephone', remoteTitle: 'In person or remotely', remoteText: 'The meeting format is agreed when you contact the practice.',
-    profileLead: 'A lawyer in Vicenza. Legal practice and translation between Italian and English.', bio: 'Marco Rodeghiero practises as a lawyer in Vicenza, Italy, at Contrà Pusterla 12.',
+    profileLead: 'A lawyer in Vicenza. Legal practice and translation between Italian and English.', bio: 'Marco Rodeghiero practises as a lawyer in Vicenza, Italy, at Contrà Pusterla 12. His work at Studio Legale Avv. Marco Rodeghiero began in March 2010.',
+    profileEducation: 'Education and training', profileExperience: 'Professional experience', profileSource: 'Professional profile on LinkedIn',
     provisional: 'Awaiting Marco’s confirmation', languages: 'Working languages',
     profileFocus: 'The practice', profileFocusText: 'The practice works in Italian civil and contract law, debt recovery, business distress and insolvency, property, family and inheritance.',
-    profileLanguagesText: 'Meetings can take place in Italian or English. The practice also translates legal texts between the two languages.',
-    profileMeeting: 'Getting in touch', profileMeetingText: 'Call or email to describe your matter and arrange a meeting in person or remotely.',
+    profileLanguagesText: 'Italian: native or bilingual proficiency. English: professional working proficiency. Meetings can take place in either language; the practice also translates legal texts between Italian and English.',
+    profileMeeting: 'Getting in touch', profileMeetingText: 'Meetings are by appointment only. Call or email to describe your matter and arrange a meeting in person or remotely.',
     supplementary: 'Additional service', situationLabel: 'When to get in touch',
     areasLead: 'Where the practice can assist you.', areasIntro: 'The main situations handled by the practice. An initial conversation helps clarify your matter and the assistance you need.',
     translationLead: 'Legal meaning, in another language.', translationIntro: 'Translation of legal texts from Italian into English and from English into Italian. Contact the practice directly to discuss your request.', translationDirection: 'Italian ↔ English', translationScope: 'A dedicated service', translationScopeText: 'The type of text, intended use, timing and arrangements are agreed directly with the practice.', translationLimits: 'Formal requirements', translationLimitsText: 'Explain the intended use and any requirements specified by the recipient. Arrangements and formal requirements must be agreed with the practice before commissioning the translation.',
     translationSteps: ['Specify the languages and type of text.', 'Describe the intended use and any deadline.', 'Agree arrangements and timing with the practice.'],
     requestTitle: 'Requesting a translation', appointmentSubject: 'Appointment enquiry', translationSubject: 'Legal translation enquiry',
     legalTitle: 'Professional information and privacy', legalText: 'Placeholder section: professional details and privacy information will be completed and approved before final publication.', footerLine: 'Italian civil law · Italian and English legal translations', back: 'Back to home', notFound: 'Page not found', notFoundText: 'The link may have changed. You can start again from the homepage.',
+  },
+} as const;
+
+// Approved source: LinkedIn screenshots supplied by the owner on 6 October 2026.
+// Education entries establish training, not current register accreditation.
+// Use dates rather than LinkedIn's automatically calculated durations.
+export const profileDetails = {
+  it: {
+    education: [
+      { title: 'Laurea in Giurisprudenza', detail: 'Università Cattolica del Sacro Cuore · 1997–2003. Indirizzo internazionale, voto 110/110 e lode.' },
+      { title: 'Dottorato di ricerca', detail: 'Università Cattolica del Sacro Cuore · 2004–2007. Istituzioni e Politiche: Storia delle Relazioni e Istituzioni Internazionali.' },
+      { title: 'Formazione giuridica a Londra', detail: 'Corsi in diritto contrattuale e commerciale, procedura civile in Inghilterra e Galles e inglese giuridico · 2011–2014.' },
+      { title: 'Formazione sul sovraindebitamento', detail: 'IUL – ISVGroup · dicembre 2018–maggio 2019. Corso per gestori della crisi da sovraindebitamento del consumatore e dell’impresa.' },
+    ],
+    experience: [
+      { title: 'Vendite immobiliari giudiziarie', detail: 'Attività di liquidazione immobiliare presso il Tribunale di Vicenza · G.D.V. – Gruppo Delegati Vendite, da settembre 2016.' },
+      { title: 'Traduzioni giuridiche inglese → italiano', detail: 'Traduttore freelance per Lawlinguists, da agosto 2016.' },
+      { title: 'Consulenza legale', detail: 'Fondazione Progetto Ematologia Onlus, da gennaio 2012.' },
+      { title: 'Supporto alla didattica', detail: 'Storia delle Relazioni e Istituzioni Internazionali · Università Cattolica del Sacro Cuore, da luglio 2005.' },
+    ],
+  },
+  en: {
+    education: [
+      { title: 'Degree in Law', detail: 'Università Cattolica del Sacro Cuore · 1997–2003. International focus, 110/110 with honours.' },
+      { title: 'Doctorate', detail: 'Università Cattolica del Sacro Cuore · 2004–2007. Institutions and Politics: History of International Relations and Institutions.' },
+      { title: 'Legal training in London', detail: 'Courses in contract and commercial law, civil procedure in England and Wales, and legal English · 2011–2014.' },
+      { title: 'Over-indebtedness training', detail: 'IUL – ISVGroup · December 2018–May 2019. Course in managing consumer and business over-indebtedness crises.' },
+    ],
+    experience: [
+      { title: 'Judicial property sales', detail: 'Real Estate Liquidation Officer, Vicenza Law Courts · G.D.V. – Gruppo Delegati Vendite, from September 2016.' },
+      { title: 'English-to-Italian legal translation', detail: 'Freelance translator for Lawlinguists, from August 2016.' },
+      { title: 'Legal counsel', detail: 'Fondazione Progetto Ematologia Onlus, from January 2012.' },
+      { title: 'Teaching assistant', detail: 'History of International Relations and Institutions · Università Cattolica del Sacro Cuore, from July 2005.' },
+    ],
   },
 } as const;
 

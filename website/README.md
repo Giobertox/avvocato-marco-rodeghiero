@@ -44,7 +44,7 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 
 ## Structure
 
-- `src/data/site.ts`: contact details, route pairs, Italian/English copy, and practice areas.
+- `src/data/site.ts`: contact details, route pairs, Italian/English copy, approved profile facts, and practice areas.
 - `src/utils/paths.ts`: the base-aware helper for page and public-asset links.
 - `config/seo.mjs` and `src/components/RobotsMeta.astro`: shared, build-time indexing policy.
 - `src/layouts/Layout.astro`: page metadata, navigation, language switch, draft banner, and footer.
@@ -74,7 +74,7 @@ At the approved production-domain launch, update Astro's `site` and `base`, set 
 
 The root redirect is an HTML redirect in the static export, supported by GitHub Pages without server redirect rules. Final canonical URLs, hreflang, sitemap and verified structured data are deferred until the final domain and approved content exist.
 
-Appointment requests open an email draft; they do not book an appointment. Telephone/email actions are real contact links. No analytics, embedded map, third-party font requests, tracking code or contact form are included.
+All meetings are by appointment only, in person or remotely. Appointment requests use telephone/email and require direct confirmation by the practice. Email links open a draft; they do not book an appointment. No analytics, embedded map, third-party font requests, tracking code or contact form are included. These choices were reconfirmed on 6 October 2026.
 
 Shared email buttons explain that they open a configured email app; `aria-describedby` associates each button with its note. The contact band supplies its own component ID so notes remain unique when there are two action groups on one page. Appointment links describe the email handoff and the practice's confirmation step. These are static instructions, with no simulated sending, loading or success state.
 
@@ -88,6 +88,8 @@ On document load, the main content fades in once over 320 ms using opacity only,
 
 Body copy remains 17 px with 1.65 line height at the default browser font size. Buttons and navigation/action links use at least 16 px text, including on narrow phones; button targets remain at least 52 px high and navigation targets at least 44 px. Supporting notes use 15 px text with 1.6 line height; the mobile brand descriptor and draft banner use 14 px. Sizes use rem units so browser font preferences can scale the text.
 
-The layout starts with mobile styles and expands at larger widths. The mobile menu uses native HTML disclosure, opens within the page, and works without JavaScript. Service rows use fine dividers, are full-width on phones, and use two columns on larger screens. Crisis/insolvency has its own group; contracts sit with civil law and debt recovery. Existing page URLs and practice-area fragments are preserved. Translations appear as a supplementary service. Profile qualifications, education dates, roles and portraits awaiting confirmation are omitted from rendered pages; the research remains in local review notes. Contact and translation enquiry actions appear near the top of their pages.
+The layout starts with mobile styles and expands at larger widths. The mobile menu uses native HTML disclosure, opens within the page, and works without JavaScript. Service rows use fine dividers, are full-width on phones, and use two columns on larger screens. Crisis/insolvency has its own group; contracts sit with civil law and debt recovery. Existing page URLs and practice-area fragments are preserved. Translations appear as a supplementary service. Contact and translation enquiry actions appear near the top of their pages.
+
+The owner approved use of the supplied LinkedIn experience, education and language screenshots on 6 October 2026. The bilingual profile now includes a short biography, four education/training entries and four selected experience entries, with a simple external link to the supplied profile. Locally held review notes retain the full source history. Dates use the source's month/year values rather than calculated durations; March 2010 describes the start at the named practice, not admission to the Bar. The IUL – ISVGroup course is training and does not establish current register accreditation. Italian and English proficiency labels follow the screenshots; elementary Swedish/German are recorded in the review notes without expanding the working-language offering. No unprovided portrait or professor title is added.
 
 Before a public launch, complete the professional registration and applicable notices, approve Italian and English copy, confirm every provisional profile detail, and update the staging/indexing settings together.

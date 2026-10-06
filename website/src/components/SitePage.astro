@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ContactBand from './ContactBand.astro';
 import ContactActions from './ContactActions.astro';
 import Icon, { type IconName } from './Icon.astro';
-import { copy, routes, studio, areas, emailLink, type Locale, type PageKey } from '../data/site';
+import { copy, routes, studio, areas, profileDetails, emailLink, type Locale, type PageKey } from '../data/site';
 const { locale, pageKey } = Astro.props as { locale: Locale; pageKey: PageKey };
 const t = copy[locale];
 const pageTitle = pageKey === 'home' ? `${locale === 'it' ? 'Avvocato a Vicenza' : 'Lawyer in Vicenza, Italy'} · Marco Rodeghiero` : t.nav[pageKey];
@@ -32,7 +32,7 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
       <div class="profile-teaser"><p class="eyebrow">{t.profileEyebrow}</p><h2>{t.profileTitle}</h2><p>{t.profileText}</p><a class="text-link" href={routes[locale].profile}>{t.profileLink}</a></div>
     </section>
     <section class="section section-tinted">
-      <div class="container home-office"><div><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="address-line">{studio.address}, Vicenza</p><a class="text-link" href={studio.maps} target="_blank" rel="noopener noreferrer">{t.directionsShort}</a></div><div><h3><Icon name="clock" />{t.hoursLabel}</h3><p>{t.weekdays}<br />9:00–13:00 · 15:00–19:00</p><p class="small-note">{t.weekend}: {t.closed.toLowerCase()}</p></div></div>
+      <div class="container home-office"><div><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="address-line">{studio.address}, Vicenza</p><a class="text-link" href={studio.maps} target="_blank" rel="noopener noreferrer">{t.directionsShort}</a></div><div><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><p>{t.weekdays}<br />9:00–13:00 · 15:00–19:00</p><p class="small-note">{t.weekend}: {t.closed.toLowerCase()}</p></div></div>
     </section>
     <ContactBand locale={locale} />
   </>}
@@ -40,10 +40,12 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
   {pageKey === 'profile' && <>
     <section class="page-heading container"><p class="eyebrow">{t.nav.profile}</p><h1>Avv. Marco Rodeghiero</h1><p>{t.profileLead}</p></section>
     <section class="container profile-body">
-      <div class="profile-bio"><p>{t.bio}</p></div>
+      <div class="profile-bio"><p>{t.bio}</p><a class="text-link" href={studio.linkedin} target="_blank" rel="noopener noreferrer">{t.profileSource}</a></div>
     </section>
     <section class="section container profile-sections">
       <article><h2>{t.profileFocus}</h2><p>{t.profileFocusText}</p><a class="text-link" href={routes[locale].areas}>{t.areaLink}</a></article>
+      <article><h2>{t.profileEducation}</h2><ul class="profile-facts">{profileDetails[locale].education.map(item => <li><h3>{item.title}</h3><p>{item.detail}</p></li>)}</ul></article>
+      <article><h2>{t.profileExperience}</h2><ul class="profile-facts">{profileDetails[locale].experience.map(item => <li><h3>{item.title}</h3><p>{item.detail}</p></li>)}</ul></article>
       <article><h2>{t.languages}</h2><p>{t.profileLanguagesText}</p><a class="text-link" href={routes[locale].translations}>{t.translationLink}</a></article>
       <article><h2>{t.profileMeeting}</h2><p>{t.profileMeetingText}</p><a class="text-link" href={routes[locale].contact}>{t.nav.contact} · {t.addressLabel.toLowerCase()}</a></article>
     </section>
@@ -70,7 +72,7 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
     <section class="page-heading container contact-heading"><h1>{t.nav.contact}</h1><p>{t.contactIntro}</p><ContactActions locale={locale} /></section>
     <section class="container contact-grid">
       <div class="contact-methods"><h2>{t.contactDetails}</h2><a class="contact-detail" href={studio.phoneHref}><Icon name="phone" /><div><span>{t.phoneLabel}</span><strong>{studio.phone}</strong></div></a><a class="contact-detail" href={emailLink()} aria-describedby="contact-actions-email-hint"><Icon name="mail" /><div><span>{t.ordinaryEmail}</span><strong>{studio.email}</strong></div></a><a class="text-link appointment-link" href={emailLink(t.appointmentSubject)} aria-describedby="appointment-note"><Icon name="calendar-days" />{t.appointment}</a><p id="appointment-note" class="small-note">{t.appointmentNote}</p></div>
-      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer"><Icon name="map-pin" />{t.directionsShort}</a><p class="small-note">{t.mapsNote}</p><hr /><h3><Icon name="clock" />{t.hoursLabel}</h3><dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl><hr /><h3><Icon name="video" />{t.remoteTitle}</h3><p>{t.remoteText}</p></aside>
+      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer"><Icon name="map-pin" />{t.directionsShort}</a><p class="small-note">{t.mapsNote}</p><hr /><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl><hr /><h3><Icon name="video" />{t.remoteTitle}</h3><p>{t.remoteText}</p></aside>
     </section>
     <section id="pec" class="container pec-section"><h2><Icon name="mail" />{t.pecLabel}</h2><a class="pec-link" href={`mailto:${studio.pec}`}>{studio.pec}</a><p class="small-note">{t.pecNote}</p></section>
     <section id="informazioni" class="container legal-placeholder"><h2>{t.legalTitle}</h2><p>{t.legalText}</p><span class="status-label">{t.provisional}</span></section>

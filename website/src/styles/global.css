@@ -160,11 +160,15 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .language-badge { display: inline-flex; gap: 8px; align-items: center; padding: 6px 10px; border-radius: 4px; background: var(--translation-pale); color: var(--translation); font-size: .9375rem; }
 .profile-body { display: grid; gap: 24px; }
 .profile-bio > p { max-width: 62ch; }
+.profile-bio > .text-link { margin-top: 12px; }
 .profile-sections { display: grid; gap: 28px; }
 .profile-sections article { padding-top: 24px; border-top: 1px solid var(--line); }
 .profile-sections h2 { font-size: 1.5rem; }
 .profile-sections p { margin-top: 12px; max-width: 62ch; color: var(--muted); }
 .profile-sections .text-link { margin-top: 8px; }
+.profile-facts { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 24px; }
+.profile-facts h3 { font-size: 1.125rem; font-weight: 600; }
+.profile-facts p { margin-top: 4px; }
 .status-label { display: inline-block; border: 1px solid #c6a98e; border-radius: 4px; color: #704729; padding: 4px 8px; font-size: .9375rem; background: #f7eee5; }
 .section-heading .status-label { margin-top: 10px; }
 .timeline { border-top: 1px solid var(--line); }

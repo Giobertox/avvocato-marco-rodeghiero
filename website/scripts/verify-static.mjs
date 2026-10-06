@@ -63,7 +63,19 @@ for (const file of htmlFiles) {
   const robots = [...html.matchAll(/<meta name="robots" content="([^"]*)"/g)];
   if (robots.length !== 1 || robots[0][1] !== robotsContent(path === '404.html')) failures.push(path + ': incorrect indexing policy');
   if (path === 'it/profilo/index.html' || path === 'en/profile/index.html') {
-    if (/LinkedIn|1997|2003|2004|2007|2010|Da confermare|Awaiting|portrait-placeholder|pending-box/.test(html)) failures.push(path + ': unconfirmed profile information is public');
+    // The owner approved the supplied LinkedIn education/experience on 6 October 2026.
+    // Keep rejecting draft placeholders and unsupported register/professorship claims.
+    if (/Da confermare|Awaiting|portrait-placeholder|pending-box|Art\.?\s*356|accreditat|accredited|professore|professor\b/i.test(html)) failures.push(path + ': unconfirmed profile information is public');
+    const approvedProfile = ['1997–2003', '2004–2007', '2011–2014', 'IUL', 'Lawlinguists', 'G.D.V.', 'Fondazione Progetto Ematologia Onlus'];
+    for (const detail of approvedProfile) {
+      if (!html.includes(detail)) failures.push(path + ': missing approved profile detail ' + detail);
+    }
+    const profileLink = [...html.matchAll(/<a\b[^>]*>/g)].find(match => match[0].includes('linkedin.com/in/marco-rodeghiero-70214328/'))?.[0];
+    if (!profileLink?.includes('rel="noopener noreferrer"')) failures.push(path + ': missing or unsafe LinkedIn profile link');
+  }
+  if (pagePairs.slice(0, 2).flat().includes(path) || path === 'it/contatti/index.html' || path === 'en/contact/index.html') {
+    const appointmentOnly = path.startsWith('it/') ? 'solo su appuntamento' : 'by appointment only';
+    if (!html.toLowerCase().includes(appointmentOnly)) failures.push(path + ': missing appointment-only notice');
   }
   if (path !== 'index.html') {
     if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) failures.push(path + ': expected one h1');
