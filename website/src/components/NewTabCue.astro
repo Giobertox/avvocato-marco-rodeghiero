@@ -1,0 +1,6 @@
+---
+import { copy, type Locale } from '../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+---
+<span class="new-tab-cue" aria-hidden="true">↗</span><span class="sr-only"> ({copy[locale].newTab})</span>

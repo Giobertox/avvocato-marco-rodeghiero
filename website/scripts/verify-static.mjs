@@ -17,6 +17,7 @@ const iconForeground = faviconSource.match(/<path\b[^>]*fill="([^"]+)"/)?.[1];
 const failures = [];
 let localReferences = 0;
 let externalScripts = 0;
+let localScripts = 0;
 let languageSwitches = 0;
 let cssReferences = 0;
 const pageTitles = new Set();
@@ -103,9 +104,19 @@ for (const file of htmlFiles) {
     const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1];
     if (canonical !== new URL(basePath + 'it/', site).href) failures.push(path + ': incorrect redirect canonical');
   }
-  const scripts = html.match(/<(?:script|iframe)\b[^>]+(?:src=|srcdoc=)/gi) || [];
-  externalScripts += scripts.length;
-  if (scripts.length) failures.push(path + ': unexpected script or embedded frame');
+  const scripts = html.match(/<(?:script|iframe)\b[^>]*>/gi) || [];
+  let pageLocalScripts = 0;
+  for (const tag of scripts) {
+    const src = tag.match(/\bsrc="([^"]*)"/)?.[1];
+    if (/^<script\b/i.test(tag) && src === basePath + 'scripts/mobile-navigation.js' && /\sdefer(?:\s|=|>)/i.test(tag)) {
+      pageLocalScripts++;
+      localScripts++;
+    } else {
+      externalScripts++;
+      failures.push(path + ': unexpected script or embedded frame');
+    }
+  }
+  if (pageLocalScripts !== (path === 'index.html' ? 0 : 1)) failures.push(path + ': incorrect mobile-navigation script count');
   for (const match of html.matchAll(/(?:href|src|poster)="([^"]*)"/g)) {
     await checkReference(match[1], sourceURL, path);
   }
@@ -140,5 +151,5 @@ for (const file of files.filter(file => file.endsWith('.css'))) {
 }
 if (htmlFiles.length !== 12) failures.push('Expected 12 static pages; found ' + htmlFiles.length);
 if (languageSwitches !== 10) failures.push('Expected 10 equivalent-page language switches; found ' + languageSwitches);
-console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, externalScripts, failures }, null, 2));
+console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, localScripts, externalScripts, failures }, null, 2));
 if (failures.length) process.exitCode = 1;

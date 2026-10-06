@@ -2,12 +2,13 @@
 import { copy, routes, type Locale } from '../data/site';
 import ContactActions from './ContactActions.astro';
 import Icon from './Icon.astro';
-const { locale } = Astro.props as { locale: Locale };
+interface Props { locale: Locale; translation?: boolean; }
+const { locale, translation = false } = Astro.props;
 const t = copy[locale];
 ---
 <section class="contact-band">
   <div class="container contact-band-inner">
-    <div><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div>
-    <div><ContactActions locale={locale} light id="contact-band-actions" /><a class="text-link light-link" href={routes[locale].contact}><Icon name="map-pin" />{t.nav.contact} · {t.addressLabel.toLowerCase()}</a></div>
+    <div><h2>{translation ? t.translationContactTitle : t.contactTitle}</h2><p>{translation ? t.translationContactText : t.contactText}</p></div>
+    <div><ContactActions locale={locale} light translation={translation} /><a class="text-link light-link" href={routes[locale].contact}><Icon name="map-pin" />{t.nav.contact} · {t.addressLabel.toLowerCase()}</a></div>
   </div>
 </section>

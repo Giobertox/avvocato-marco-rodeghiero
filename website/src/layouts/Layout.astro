@@ -4,6 +4,7 @@ import Icon, { type IconName } from '../components/Icon.astro';
 import RobotsMeta from '../components/RobotsMeta.astro';
 import Brand from '../components/Brand.astro';
 import Favicons from '../components/Favicons.astro';
+import { withBase } from '../utils/paths';
 import { indexingEnabled } from '../../config/seo.mjs';
 import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
 interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; }
@@ -26,6 +27,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={locale === 'it' ? 'it_IT' : 'en_GB'} />
+    <script is:inline src={withBase('/scripts/mobile-navigation.js')} defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">{t.skip}</a>
@@ -36,7 +38,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
         <nav class="main-nav" aria-label={locale === 'it' ? 'Navigazione principale' : 'Main navigation'}>
           {navKeys.filter(key => key !== 'home').map(key => <a href={routes[locale][key]} aria-current={pageKey === key ? 'page' : undefined}>{t.nav[key]}</a>)}
         </nav>
-        <div class="header-tools"><div class="language-nav" aria-label={locale === 'it' ? 'Lingua' : 'Language'}><a href={routes.it[pageKey]} lang="it" aria-label="Italiano" aria-current={locale === 'it' ? 'true' : undefined}>IT</a><a href={routes.en[pageKey]} lang="en" aria-label="English" aria-current={locale === 'en' ? 'true' : undefined}>EN</a></div><a class="header-phone" href={studio.phoneHref}><Icon name="phone" />{studio.phone}</a></div>
+        <div class="header-tools"><nav class="language-nav" aria-label={locale === 'it' ? 'Lingua' : 'Language'}><a href={routes.it[pageKey]} lang="it" aria-label="Italiano" aria-current={locale === 'it' ? 'true' : undefined}>IT</a><a href={routes.en[pageKey]} lang="en" aria-label="English" aria-current={locale === 'en' ? 'true' : undefined}>EN</a></nav><a class="header-phone" href={studio.phoneHref}><Icon name="phone" />{studio.phone}</a></div>
         <details class="mobile-nav">
           <summary><span class="menu-label"><Icon name="menu" class="menu-open-icon" /><Icon name="x" class="menu-close-icon" /><span class="menu-open-label">{t.menu}</span><span class="menu-close-label">{t.close}</span></span><Icon name="chevron-down" class="menu-chevron" /></summary>
           <nav aria-label={locale === 'it' ? 'Navigazione mobile' : 'Mobile navigation'}>{navKeys.map(key => <a href={routes[locale][key]} aria-current={pageKey === key ? 'page' : undefined}><Icon name={navIcons[key]} />{t.nav[key]}</a>)}</nav>

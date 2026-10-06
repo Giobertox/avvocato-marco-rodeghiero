@@ -60,25 +60,27 @@ hr { margin: 24px 0; border: 0; border-top: 1px solid var(--line); }
 h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .eyebrow { margin-bottom: 10px; font-size: .9375rem; font-weight: 600; color: var(--muted); }
 .small-note { font-size: .9375rem; line-height: 1.6; color: var(--muted); margin-top: var(--space-note); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.new-tab-cue { flex-shrink: 0; }
 .skip-link { position: fixed; left: 16px; top: -100px; padding: 16px; background: var(--white); z-index: 30; }
 .skip-link:focus { top: 12px; }
 .draft-banner { background: var(--pale); border-bottom: 1px solid var(--line); }
-.draft-inner { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 32px; font-size: .875rem; }
+.draft-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 8px; min-height: 32px; font-size: .875rem; }
+.draft-inner > * { min-width: min-content; max-width: 100%; overflow-wrap: normal; }
 .draft-inner strong { font-weight: 600; }
 .draft-inner span { color: var(--muted); }
 .site-header { position: sticky; top: 0; z-index: 20; max-height: 100dvh; overflow-y: auto; border-bottom: 1px solid var(--line); background: var(--brand-paper); box-shadow: 0 2px 8px #0014300a; }
-.header-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 12px; padding-top: 8px; }
-.wordmark { display: flex; align-items: center; gap: 8px; min-height: 48px; text-decoration: none; min-width: 0; }
-.brand-full { display: none; }
+.header-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 0 12px; padding-top: 8px; }
+.wordmark { display: flex; flex: 1 1 min-content; align-items: center; gap: 8px; min-height: 48px; text-decoration: none; min-width: min-content; max-width: 100%; }
 /* Display the supplied blue artwork unchanged, without filters or blending.
    The header matches the image's near-white background. */
-/* Present the existing monogram using the same source image on mobile. */
-.brand-symbol { display: block; width: 54px; height: 18px; flex: 0 0 54px; overflow: hidden; }
-.brand-symbol img { display: block; width: 54px; height: auto; margin-top: -1px; }
-.wordmark-copy { min-width: 0; }
+/* Use the tightly cropped, supplied mark on mobile and the full logo on desktop. */
+.brand-artwork { display: block; width: 84px; flex: 0 0 84px; }
+.brand-artwork img { display: block; width: 100%; height: auto; }
+.wordmark-copy { min-width: min-content; overflow-wrap: normal; }
 .wordmark-copy strong { display: block; font: 1.125rem/1.2 var(--serif); letter-spacing: -.01em; }
 .wordmark-copy > span { display: block; margin-top: 4px; color: var(--muted); font-size: .875rem; line-height: 1.4; }
-.header-tools { display: flex; gap: 16px; align-items: center; }
+.header-tools { display: flex; flex: 0 0 auto; gap: 16px; align-items: center; margin-left: auto; }
 .language-nav { display: flex; gap: 2px; }
 .language-nav a { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 5px; font-size: 1rem; text-decoration: none; }
 .language-nav a[aria-current] { background: var(--pale); color: var(--accent); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
@@ -86,7 +88,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .language-nav a:active { background: var(--pale-pressed); color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); transition-duration: 60ms; }
 .language-nav a, .mobile-nav summary, .mobile-nav nav a, .main-nav a { transition: background-color 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out, box-shadow 160ms ease-out; }
 .header-phone, .main-nav { display: none; }
-.mobile-nav { grid-column: 1 / -1; margin-top: 4px; border-top: 1px solid var(--line); }
+.mobile-nav { flex-basis: 100%; width: 100%; margin-top: 4px; border-top: 1px solid var(--line); }
 .mobile-nav summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding-inline: 8px; border-radius: 6px; cursor: pointer; list-style: none; font-size: 1rem; font-weight: 600; }
 .mobile-nav[open] summary { background: var(--pale); }
 .mobile-nav summary:active { background: var(--pale-pressed); transition-duration: 60ms; }
@@ -119,7 +121,8 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .facts > span { display: inline-flex; gap: 7px; align-items: center; }
 .facts .icon { width: 18px; height: 18px; flex-basis: 18px; }
 .hero-office { display: none; }
-.actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: var(--space-actions); }
+/* Stack actions when enlarged text needs more room, while retaining two at normal phone sizes. */
+.actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: 10px; margin-top: var(--space-actions); }
 .button { display: inline-flex; gap: 9px; align-items: center; justify-content: center; min-height: 52px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 3px; background: var(--accent); color: var(--white); text-decoration: none; text-align: center; font-size: 1rem; font-weight: 600; line-height: 1.4; }
 .button { transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, box-shadow 160ms ease-out; }
 .button:active { background: var(--accent-pressed); border-color: var(--accent-pressed); box-shadow: inset 0 1px 2px #0003; transition-duration: 60ms; }
@@ -168,7 +171,6 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .contact-band h2 { font-size: 1.75rem; }
 .contact-band p { color: var(--inverse-muted); margin-top: 10px; max-width: 580px; }
 .contact-band .actions { margin-top: 0; }
-.contact-band .action-hint { margin-top: var(--space-note); }
 .contact-band a:focus-visible { outline-color: var(--paper); }
 .light-link { color: var(--paper); text-decoration-color: var(--inverse-border); margin-top: 8px; }
 .light-link:active { color: var(--paper); }
@@ -201,7 +203,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .pending-box h2 { font-size: 1.25rem; font-family: var(--sans); font-weight: 600; line-height: 1.4; }
 .pending-box p { margin-top: 10px; color: var(--muted); }
 .pending-box .status-label { margin-top: 12px; }
-.area-toc { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
+.area-toc { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 24px; }
 .area-toc a { display: flex; align-items: center; gap: 8px; min-height: 60px; padding: 10px; border-left: 3px solid var(--area-color, var(--translation)); background: var(--area-pale, var(--translation-pale)); text-decoration: none; font-size: 1rem; line-height: 1.4; }
 .area-toc a > .icon { color: var(--area-color, var(--translation)); }
 .area-toc a { transition: background-color 160ms ease-out, box-shadow 160ms ease-out; }
@@ -265,11 +267,19 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .footer-bottom { display: flex; flex-wrap: wrap; gap: 0 20px; align-items: center; padding-block: 12px; border-top: 1px solid var(--line); font-size: 1rem; color: var(--muted); }
 .footer-bottom > span { width: 100%; padding-block: 8px; }
 .footer-bottom > a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 999px) and (max-height: 500px) {
+  /* A scrolling header leaves room for page content and the native expanded menu. */
+  html { scroll-padding-top: 24px; }
+  .site-header { position: static; max-height: none; overflow: visible; }
+}
+@media (min-width: 360px) {
+  /* At most two columns; enlarged text can still request a single readable column. */
+  .area-toc { grid-template-columns: repeat(auto-fit, minmax(min(100%, max(9rem, calc(50% - 4px))), 1fr)); }
+}
 @media (max-width: 350px) {
   .container { width: calc(100% - 32px); }
   .wordmark { gap: 8px; }
-  .brand-symbol { width: 54px; height: 18px; flex-basis: 54px; }
-  .brand-symbol img { width: 54px; }
+  .brand-artwork { width: 64px; flex-basis: 64px; }
   .wordmark-copy strong { font-size: 1.125rem; }
   .header-inner { column-gap: 8px; }
   .button { padding-inline: 10px; gap: 7px; }
@@ -304,9 +314,9 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 }
 @media (min-width: 1000px) {
   :root { --header-clearance: 7.5rem; }
-  .header-inner { grid-template-columns: auto 1fr auto; gap: 24px; padding-block: 8px; }
-  .brand-full { display: block; width: 160px; height: auto; }
-  .brand-symbol, .wordmark-copy { display: none; }
+  .header-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding-block: 8px; }
+  .brand-artwork { width: 160px; flex-basis: 160px; }
+  .wordmark-copy { display: none; }
   .main-nav { display: flex; align-items: center; justify-content: end; gap: 24px; }
   .main-nav a { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; font-size: 1rem; text-decoration: none; border-bottom: 2px solid transparent; }
   .main-nav a[aria-current] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
