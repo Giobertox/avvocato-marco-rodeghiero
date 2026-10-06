@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Icon, { type IconName } from '../components/Icon.astro';
 import RobotsMeta from '../components/RobotsMeta.astro';
+import Brand from '../components/Brand.astro';
 import { indexingEnabled } from '../../config/seo.mjs';
 import { withBase } from '../utils/paths';
 import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
@@ -20,7 +21,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
     <title>{title} | Studio Legale Avv. Marco Rodeghiero</title>
     <meta name="description" content={description} />
     <RobotsMeta forceNoIndex={forceNoIndex} />
-    <meta name="theme-color" content="#152f3a" />
+    <meta name="theme-color" content="#6a0d0f" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -32,7 +33,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
     {!indexingEnabled && <div class="draft-banner"><div class="container draft-inner" title={t.stageDetail}><strong>{t.stage}</strong><span>{locale === 'it' ? 'In revisione' : 'Under review'}</span></div></div>}
     <header class="site-header">
       <div class="container header-inner">
-        <a class="wordmark" href={routes[locale].home} aria-label={studio.name}><strong>Marco Rodeghiero</strong><span>Studio legale · Avvocato</span></a>
+        <Brand locale={locale} />
         <nav class="main-nav" aria-label={locale === 'it' ? 'Navigazione principale' : 'Main navigation'}>
           {navKeys.filter(key => key !== 'home').map(key => <a href={routes[locale][key]} aria-current={pageKey === key ? 'page' : undefined}>{t.nav[key]}</a>)}
         </nav>

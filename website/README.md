@@ -48,12 +48,19 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 - `src/utils/paths.ts`: the base-aware helper for page and public-asset links.
 - `config/seo.mjs` and `src/components/RobotsMeta.astro`: shared, build-time indexing policy.
 - `src/layouts/Layout.astro`: page metadata, navigation, language switch, draft banner, and footer.
+- `src/components/Brand.astro`: responsive display of the supplied logo, with a readable text identity on mobile.
 - `src/components/SitePage.astro`: the five page types.
 - `src/components/ContactBand.astro`: shared contact invitation.
 - `src/components/ContactActions.astro`: consistent, labelled call/email buttons.
 - `src/components/Icon.astro` and `src/icons/`: local Lucide SVG icons, hidden from assistive technology where adjacent labels convey their meaning; license in `public/licenses/lucide.txt`.
 - `src/styles/global.css`: responsive styling.
 - `STAGING-REVIEW.md`: local-only source notes, assumptions, and remaining approval items; excluded from the public repository.
+
+## Branding
+
+`public/branding/studio-logo.webp` is an unchanged copy of the supplied horizontal logo (`AvvMR Law Firm Logo Colours.webp`). Original brand materials remain in the ignored root `branding/` folder. The full logo appears on desktop; mobile presents its monogram through a CSS viewport alongside readable HTML text. Both use the same local image and a base-aware URL, with no additional image download for the alternate display. The home link has the full practice name as its accessible label. No AI-generated logo or fictional portrait/office photograph is used.
+
+The provisional palette uses burgundy `#6a0d0f`, charcoal `#2c2926`, warm grey `#6b5f56`, and ivory `#faf8f3`, pending an official colour specification. The header background matches the supplied image's near-white background. Practice-area icons and jump links repeat restrained burgundy, ochre, sage and plum accents across both languages; labels and icons identify each area independently of colour. Translations use a sage accent, office information a warm neutral panel, and contact invitations burgundy. The favicon remains a simple, readable R initial in the brand colours until a dedicated small-format brand asset is available.
 
 ## Staging limitations
 

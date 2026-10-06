@@ -24,7 +24,7 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
     </section>
     <section class="section container home-services">
       <div class="section-heading"><h2>{t.areaTitle}</h2></div>
-      <div class="service-list">{areas[locale].map(area => <a class="service-row" href={`${routes[locale].areas}#${area.id}`}><Icon name={areaIcons[area.id]} /><div><h3>{area.title}</h3><p>{area.text}</p></div><span class="row-arrow" aria-hidden="true">→</span></a>)}</div>
+      <div class="service-list">{areas[locale].map(area => <a class="service-row" data-area={area.id} href={`${routes[locale].areas}#${area.id}`}><Icon name={areaIcons[area.id]} /><div><h3>{area.title}</h3><p>{area.text}</p></div><span class="row-arrow" aria-hidden="true">→</span></a>)}</div>
       <a class="text-link section-link" href={routes[locale].areas}><Icon name="book-open" />{t.areaLink}</a>
     </section>
     <section class="section container editorial-pair">
@@ -53,8 +53,8 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
   {pageKey === 'areas' && <>
     <section class="page-heading container"><h1>{t.nav.areas}</h1><p>{t.areasIntro}</p></section>
     <section class="container areas-layout">
-      <nav class="area-toc" aria-label={t.nav.areas}>{areas[locale].map(a => <a href={`#${a.id}`}><Icon name={areaIcons[a.id]} />{a.title}</a>)}<a href={routes[locale].translations}><Icon name="languages" />{t.nav.translations}</a></nav>
-      <div class="area-details">{areas[locale].map(a => <article id={a.id}><h2>{a.title}</h2><p>{a.detail}</p><p class="area-when"><strong>{t.situationLabel}</strong>{a.when}</p></article>)}<article><p class="eyebrow">{t.supplementary}</p><h2>{t.translationTitle}</h2><p>{t.translationText}</p><a class="text-link" href={routes[locale].translations}>{t.translationLink}</a></article></div>
+      <nav class="area-toc" aria-label={t.nav.areas}>{areas[locale].map(a => <a data-area={a.id} href={`#${a.id}`}><Icon name={areaIcons[a.id]} /><span>{a.title}</span></a>)}<a class="area-toc-translation" href={routes[locale].translations}><Icon name="languages" /><span>{t.nav.translations}</span></a></nav>
+      <div class="area-details">{areas[locale].map(a => <article id={a.id} data-area={a.id}><h2><Icon name={areaIcons[a.id]} />{a.title}</h2><p>{a.detail}</p><p class="area-when"><strong>{t.situationLabel}</strong>{a.when}</p></article>)}<article><p class="eyebrow">{t.supplementary}</p><h2>{t.translationTitle}</h2><p>{t.translationText}</p><a class="text-link" href={routes[locale].translations}>{t.translationLink}</a></article></div>
     </section>
     <ContactBand locale={locale} />
   </>}
