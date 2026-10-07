@@ -264,6 +264,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .pec-link { display: flex; align-items: center; min-height: 44px; margin-top: 8px; font-size: 1rem; overflow-wrap: anywhere; }
 .legal-placeholder { margin-bottom: 36px; }
 .legal-placeholder h2 { font-size: 1.375rem; }
+.legal-placeholder article { margin-top: 24px; }
 .legal-placeholder p { margin-top: 12px; color: var(--muted); max-width: 750px; }
 .legal-placeholder .status-label { margin-top: 12px; }
 .site-footer { padding-top: 28px; }
