@@ -237,7 +237,7 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .request-steps li::before { content: counter(step); display: flex; justify-content: center; align-items: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: var(--translation-pale); color: var(--translation); font-size: .875rem; font-weight: 600; }
 .contact-heading { padding-bottom: 24px; }
 .contact-grid { display: grid; gap: 28px; }
-.contact-methods h2 { font-family: var(--sans); font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.contact-methods > h2 { font-family: var(--sans); font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
 .contact-detail { display: flex; gap: 12px; align-items: center; padding-block: 12px; min-height: 64px; border-bottom: 1px solid var(--line); text-decoration: none; }
 .contact-detail > .icon { color: var(--muted); }
 .contact-detail > div { min-width: 0; }
@@ -245,14 +245,16 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .contact-detail strong { display: block; margin-top: 2px; font-size: 1rem; font-weight: 600; text-decoration: underline; text-decoration-color: var(--border-control); overflow-wrap: anywhere; }
 .contact-detail[href^="tel:"] strong { font-size: 1.375rem; }
 .appointment-link { margin-top: 12px; }
-.office-card { padding: 24px; background: var(--pale); }
+.contact-meeting-block { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
+.contact-meeting-block h2 { font-family: var(--sans); font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+.contact-meeting-block h2 + p { margin-top: 8px; color: var(--muted); }
+.office-card { align-self: start; padding: 24px; background: var(--pale); }
 .office-card h2 { font-size: 1.5rem; margin-bottom: 12px; }
 .office-address { font-size: 1.25rem; font-weight: 500; }
 .office-card .office-address + p { margin-top: 4px; color: var(--muted); }
 .office-location-photo { margin: 20px 0 0; }
 .office-location-photo figcaption { margin-top: 8px; color: var(--muted); font-size: .9375rem; line-height: 1.6; }
 .directions-button { width: 100%; margin-top: 16px; background: var(--white); }
-.office-card h3 + p { margin-top: 8px; color: var(--muted); }
 .hours { margin: 12px 0 0; }
 .hours > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; margin-top: 10px; }
 .hours dd { margin: 0; text-align: right; }

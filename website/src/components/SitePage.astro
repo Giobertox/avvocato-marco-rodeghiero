@@ -77,8 +77,18 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
   {pageKey === 'contact' && <>
     <section class="page-heading container contact-heading"><h1>{t.nav.contact}</h1><p>{t.contactIntro}</p><ContactActions locale={locale} /></section>
     <section class="container contact-grid">
-      <div class="contact-methods"><h2>{t.contactDetails}</h2><a class="contact-detail" href={studio.phoneHref}><Icon name="phone" /><div><span>{t.phoneLabel}</span><strong>{studio.phone}</strong></div></a><a class="contact-detail" href={emailLink()}><Icon name="mail" /><div><span>{t.ordinaryEmail}</span><strong>{studio.email}</strong></div></a><a class="text-link appointment-link" href={emailLink(t.appointmentSubject)} aria-describedby="appointment-note"><Icon name="calendar-days" />{t.appointment}</a><p id="appointment-note" class="small-note">{t.appointmentNote}</p></div>
-      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><figure class="office-location-photo"><img class="photo" src={withBase('/images/office_entrance.webp')} width="993" height="600" alt={t.officeExteriorAlt} loading="lazy" decoding="async" /><figcaption>{studio.address} · {t.officeExteriorCaption}</figcaption></figure><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}><Icon name="map-pin" />{t.directionsShort}<NewTabCue locale={locale} /></a><p class="small-note">{t.mapsNote}</p><hr /><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl><hr /><h3><Icon name="video" />{t.remoteTitle}</h3><p>{t.remoteText}</p></aside>
+      <div class="contact-methods"><h2>{t.contactDetails}</h2><a class="contact-detail" href={studio.phoneHref}><Icon name="phone" /><div><span>{t.phoneLabel}</span><strong>{studio.phone}</strong></div></a><a class="contact-detail" href={emailLink()}><Icon name="mail" /><div><span>{t.ordinaryEmail}</span><strong>{studio.email}</strong></div></a><a class="text-link appointment-link" href={emailLink(t.appointmentSubject)} aria-describedby="appointment-note"><Icon name="calendar-days" />{t.appointment}</a><p id="appointment-note" class="small-note">{t.appointmentNote}</p>
+        <section class="contact-meeting-block">
+          <h2><Icon name="clock" />{t.hoursLabel}</h2>
+          <p><strong>{t.byAppointment}</strong></p>
+          <dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl>
+        </section>
+        <section class="contact-meeting-block">
+          <h2><Icon name="video" />{t.remoteTitle}</h2>
+          <p>{t.remoteText}</p>
+        </section>
+      </div>
+      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><figure class="office-location-photo"><img class="photo" src={withBase('/images/office_entrance.webp')} width="993" height="600" alt={t.officeExteriorAlt} loading="lazy" decoding="async" /><figcaption>{studio.address} · {t.officeExteriorCaption}</figcaption></figure><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}><Icon name="map-pin" />{t.directionsShort}<NewTabCue locale={locale} /></a><p class="small-note">{t.mapsNote}</p></aside>
     </section>
     <section id="pec" class="container pec-section"><h2><Icon name="mail" />{t.pecLabel}</h2><a class="pec-link" href={`mailto:${studio.pec}`}>{studio.pec}</a><p class="small-note">{t.pecNote}</p></section>
     <section id="informazioni" class="container legal-placeholder"><h2>{t.legalTitle}</h2><p>{t.legalText}</p><span class="status-label">{t.provisional}</span></section>

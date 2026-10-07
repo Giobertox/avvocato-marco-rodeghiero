@@ -54,7 +54,7 @@ Reference: [official Astro GitHub Pages deployment guide](https://docs.astro.bui
 - `tests/favicons.test.mjs`: checks actual exported images, ICO frames and localized manifests.
 - `src/layouts/Layout.astro`: page metadata, navigation, language switch, draft banner, and footer.
 - `src/components/Brand.astro`: responsive display of the supplied logo, with a readable text identity on mobile.
-- `src/components/SitePage.astro`: the five page types.
+- `src/components/SitePage.astro`: the five page types. The contact page groups direct contact details, appointment requests, hours and meeting format in the left column; the right column contains the address, entrance photograph and directions. Mobile stacks these groups, and PEC/professional information follows both columns.
 - `src/components/ContactBand.astro`: shared contact invitation.
 - `src/components/ContactActions.astro`: consistent, labelled call/email buttons.
 - `src/components/NewTabCue.astro`: visible arrow and localised screen-reader text for links that open a new tab.
