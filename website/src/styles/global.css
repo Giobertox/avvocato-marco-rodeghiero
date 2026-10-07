@@ -158,10 +158,14 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .translation-teaser .eyebrow, .translation-teaser .text-link, .language-badge { color: var(--translation); }
 .translation-teaser .text-link { text-decoration-color: var(--translation); }
 .editorial-pair > .profile-teaser { border-top: 3px solid var(--muted); }
+.photo { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 3px; }
+.profile-teaser-heading { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 20px; align-items: center; }
+.profile-teaser-heading .eyebrow { margin-bottom: 8px; }
 .profile-teaser h2, .translation-teaser h2 { font-size: 1.625rem; }
 .profile-teaser > p:not(.eyebrow), .translation-teaser > p:not(.eyebrow) { color: var(--muted); margin-top: 10px; max-width: 62ch; }
 .profile-teaser .text-link, .translation-teaser .text-link { margin-top: 8px; }
-.home-office { display: grid; gap: 24px; }
+.home-office { display: grid; gap: 24px; align-items: center; }
+.home-office-info { display: grid; gap: 24px; }
 .home-office h2 { font-size: 1.625rem; }
 .home-office h3 { font-weight: 600; }
 .home-office p { margin-top: 10px; }
@@ -179,7 +183,9 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .page-heading .eyebrow { margin-bottom: 8px; }
 .page-heading .language-badge { margin-bottom: 12px; }
 .language-badge { display: inline-flex; gap: 8px; align-items: center; padding: 6px 10px; border-radius: 4px; background: var(--translation-pale); color: var(--translation); font-size: .9375rem; }
-.profile-body { display: grid; gap: 24px; }
+.profile-introduction { display: grid; gap: 24px; padding-top: 28px; }
+.profile-introduction .page-heading { padding: 0; }
+.profile-portrait { width: min(100%, 320px); }
 .profile-bio > p { max-width: 62ch; }
 .profile-bio > .text-link { margin-top: 12px; }
 .profile-sections { display: grid; gap: 28px; }
@@ -243,6 +249,8 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .office-card h2 { font-size: 1.5rem; margin-bottom: 12px; }
 .office-address { font-size: 1.25rem; font-weight: 500; }
 .office-card .office-address + p { margin-top: 4px; color: var(--muted); }
+.office-location-photo { margin: 20px 0 0; }
+.office-location-photo figcaption { margin-top: 8px; color: var(--muted); font-size: .9375rem; line-height: 1.6; }
 .directions-button { width: 100%; margin-top: 16px; background: var(--white); }
 .office-card h3 + p { margin-top: 8px; color: var(--muted); }
 .hours { margin: 12px 0 0; }
@@ -305,6 +313,10 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
   .editorial-pair { grid-template-columns: 1fr 1fr; gap: 48px; }
   .home-office, .translation-body, .contact-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .contact-band-inner { grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+  .profile-introduction { grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); gap: 20px 32px; padding-top: 40px; }
+  .profile-introduction .page-heading { grid-column: 1; }
+  .profile-introduction .profile-bio { grid-column: 1; grid-row: 2; }
+  .profile-portrait { grid-column: 2; grid-row: 1 / span 2; }
   .profile-sections { grid-template-columns: 1fr 1fr; gap: 32px 48px; }
   .profile-sections article:first-child { grid-column: 1 / -1; }
   .timeline article { grid-template-columns: 120px 1fr; gap: 20px; }
@@ -337,6 +349,11 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
   .area-details article { padding-block: 28px; }
   .area-details h2 { font-size: 1.75rem; }
   .page-heading { padding-top: 48px; }
+  .profile-introduction { grid-template-columns: minmax(0, 1fr) 360px; column-gap: 64px; padding-top: 48px; }
+  .profile-portrait { width: 360px; }
+  .profile-teaser-heading { grid-template-columns: 136px minmax(0, 1fr); gap: 24px; }
+  .home-office { grid-template-columns: minmax(0, 1fr) 320px; }
+  .home-office-info { grid-template-columns: 1fr 1fr; gap: 24px; }
   .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
   .footer-identity { grid-column: auto; }
 }

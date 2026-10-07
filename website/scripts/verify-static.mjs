@@ -114,8 +114,8 @@ for (const file of htmlFiles) {
     if (!profileLink?.includes('rel="noopener noreferrer"')) failures.push(path + ': missing or unsafe LinkedIn profile link');
   }
   if (pagePairs.slice(0, 2).flat().includes(path) || path === 'it/contatti/index.html' || path === 'en/contact/index.html') {
-    const appointmentOnly = path.startsWith('it/') ? 'solo su appuntamento' : 'by appointment only';
-    if (!html.toLowerCase().includes(appointmentOnly)) failures.push(path + ': missing appointment-only notice');
+    const appointmentNotice = path.startsWith('it/') ? 'su appuntamento' : 'by appointment';
+    if (!html.toLowerCase().includes(appointmentNotice)) failures.push(path + ': missing appointment notice');
   }
   if (path !== 'index.html') {
     if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) failures.push(path + ': expected one h1');

@@ -34,17 +34,18 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
     </section>
     <section class="section container editorial-pair">
       <div class="translation-teaser"><p class="eyebrow">{t.supplementary}</p><h2>{t.translationTitle}</h2><p>{t.translationText}</p><a class="text-link" href={routes[locale].translations}><Icon name="languages" />{t.translationLink}</a></div>
-      <div class="profile-teaser"><p class="eyebrow">{t.profileEyebrow}</p><h2>{t.profileTitle}</h2><p>{t.profileText}</p><a class="text-link" href={routes[locale].profile}>{t.profileLink}</a></div>
+      <div class="profile-teaser"><div class="profile-teaser-heading"><img class="teaser-portrait photo" src={withBase('/images/avvocato_marco_profile.webp')} width="1254" height="1254" alt={t.portraitAlt} loading="lazy" decoding="async" /><div><p class="eyebrow">{t.profileEyebrow}</p><h2>{t.profileTitle}</h2></div></div><p>{t.profileText}</p><a class="text-link" href={routes[locale].profile}>{t.profileLink}</a></div>
     </section>
     <section class="section section-tinted">
-      <div class="container home-office"><div><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="address-line">{studio.address}, Vicenza</p><a class="text-link" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}>{t.directionsShort}<NewTabCue locale={locale} /></a></div><div><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><p>{t.weekdays}<br />9:00–13:00 · 15:00–19:00</p><p class="small-note">{t.weekend}: {t.closed.toLowerCase()}</p></div></div>
+      <div class="container home-office"><div class="home-office-info"><div><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="address-line">{studio.address}, Vicenza</p><a class="text-link" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}>{t.directionsShort}<NewTabCue locale={locale} /></a></div><div><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><p>{t.weekdays}<br />9:00–13:00 · 15:00–19:00</p><p class="small-note">{t.weekend}: {t.closed.toLowerCase()}</p></div></div><div class="office-interior-frame"><img class="office-interior photo" src={withBase('/images/office-interior.webp')} width="800" height="600" alt={t.officeInteriorAlt} loading="lazy" decoding="async" /></div></div>
     </section>
     <ContactBand locale={locale} />
   </>}
 
   {pageKey === 'profile' && <>
-    <section class="page-heading container"><p class="eyebrow">{t.nav.profile}</p><h1>Avv. Marco Rodeghiero</h1><p>{t.profileLead}</p></section>
-    <section class="container profile-body">
+    <section class="container profile-introduction">
+      <header class="page-heading"><p class="eyebrow">{t.nav.profile}</p><h1>Avv. Marco Rodeghiero</h1><p>{t.profileLead}</p></header>
+      <img class="profile-portrait photo" src={withBase('/images/avvocato_marco_profile.webp')} width="1254" height="1254" alt={t.portraitAlt} decoding="async" />
       <div class="profile-bio"><p>{t.bio}</p><a class="text-link" href={studio.linkedin} target="_blank" rel="noopener noreferrer" title={t.newTab}>{t.profileSource}<NewTabCue locale={locale} /></a></div>
     </section>
     <section class="section container profile-sections">
@@ -77,7 +78,7 @@ const areaIcons: Record<string, IconName> = { civile: 'scale', famiglia: 'users-
     <section class="page-heading container contact-heading"><h1>{t.nav.contact}</h1><p>{t.contactIntro}</p><ContactActions locale={locale} /></section>
     <section class="container contact-grid">
       <div class="contact-methods"><h2>{t.contactDetails}</h2><a class="contact-detail" href={studio.phoneHref}><Icon name="phone" /><div><span>{t.phoneLabel}</span><strong>{studio.phone}</strong></div></a><a class="contact-detail" href={emailLink()}><Icon name="mail" /><div><span>{t.ordinaryEmail}</span><strong>{studio.email}</strong></div></a><a class="text-link appointment-link" href={emailLink(t.appointmentSubject)} aria-describedby="appointment-note"><Icon name="calendar-days" />{t.appointment}</a><p id="appointment-note" class="small-note">{t.appointmentNote}</p></div>
-      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}><Icon name="map-pin" />{t.directionsShort}<NewTabCue locale={locale} /></a><p class="small-note">{t.mapsNote}</p><hr /><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl><hr /><h3><Icon name="video" />{t.remoteTitle}</h3><p>{t.remoteText}</p></aside>
+      <aside id="sede" class="office-card"><h2><Icon name="map-pin" />{t.addressLabel}</h2><p class="office-address">{studio.address}</p><p>{studio.city}</p><figure class="office-location-photo"><img class="photo" src={withBase('/images/office_entrance.webp')} width="993" height="600" alt={t.officeExteriorAlt} loading="lazy" decoding="async" /><figcaption>{studio.address} · {t.officeExteriorCaption}</figcaption></figure><a class="button button-secondary directions-button" href={studio.maps} target="_blank" rel="noopener noreferrer" title={t.newTab}><Icon name="map-pin" />{t.directionsShort}<NewTabCue locale={locale} /></a><p class="small-note">{t.mapsNote}</p><hr /><h3><Icon name="clock" />{t.hoursLabel}</h3><p><strong>{t.byAppointment}</strong></p><dl class="hours"><div><dt>{t.weekdays}</dt><dd>9:00–13:00<br />15:00–19:00</dd></div><div><dt>{t.weekend}</dt><dd>{t.closed}</dd></div></dl><hr /><h3><Icon name="video" />{t.remoteTitle}</h3><p>{t.remoteText}</p></aside>
     </section>
     <section id="pec" class="container pec-section"><h2><Icon name="mail" />{t.pecLabel}</h2><a class="pec-link" href={`mailto:${studio.pec}`}>{studio.pec}</a><p class="small-note">{t.pecNote}</p></section>
     <section id="informazioni" class="container legal-placeholder"><h2>{t.legalTitle}</h2><p>{t.legalText}</p><span class="status-label">{t.provisional}</span></section>

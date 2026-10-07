@@ -12,7 +12,7 @@ interface Props { locale: Locale; pageKey: PageKey; title: string; description: 
 const { locale, pageKey, title, description, forceNoIndex = false, sharingURL } = Astro.props;
 const t = copy[locale];
 const other = locale === 'it' ? 'en' : 'it';
-const navKeys: PageKey[] = ['home', 'areas', 'contact', 'translations', 'profile'];
+const navKeys: PageKey[] = ['home', 'areas', 'translations', 'profile', 'contact'];
 const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', contact: 'mail', translations: 'languages', profile: 'user-round' };
 ---
 <!doctype html>
