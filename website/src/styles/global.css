@@ -254,7 +254,8 @@ h2 > .icon, h3 > .icon { margin-right: 8px; vertical-align: -.05em; }
 .office-card .office-address + p { margin-top: 4px; color: var(--muted); }
 .office-location-photo { margin: 20px 0 0; }
 .office-location-photo figcaption { margin-top: 8px; color: var(--muted); font-size: .9375rem; line-height: 1.6; }
-.directions-button { width: 100%; margin-top: 16px; background: var(--white); }
+.location-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 16px; }
+.directions-button { width: 100%; }
 .hours { margin: 12px 0 0; }
 .hours > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; margin-top: 10px; }
 .hours dd { margin: 0; text-align: right; }
