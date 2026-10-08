@@ -14,3 +14,6 @@ dist/
 .sites-runtime/
 .env
 .env.*
+
+# Temporary browser automation captures (review evidence stays local).
+/.playwright-mcp/

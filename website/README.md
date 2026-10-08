@@ -2,11 +2,18 @@
 
 A review version of the bilingual website, built with Astro and static HTML. Discovery and staging-review documents are kept locally and excluded from the public repository.
 
+## Current status — 8 October 2026
+
+The approved privacy-page update is published on GitHub Pages at application commit `e2eebcb0a1c878095e50cfaff7c7f5f23e792c9c`. [Deployment run 37824473652](https://github.com/Giobertox/avvocato-marco-rodeghiero/actions/runs/37824473652) passed tests, build, verification and deployment. The site remains a review draft with visible TBC notes and `noindex, nofollow`; no cookie banner is required for the checked configuration.
+
+Start the next session with [HANDOFF.md](./HANDOFF.md) for live links, remaining facts and publishing instructions.
+
 ## Run locally
 
 Requires Node.js 22.12 or later in the Node 22 release line (the current build was checked with Node 22.23.2).
 
 ```powershell
+cd E:\MyProjects\AvvMarco\website
 npm ci
 $env:ASTRO_TELEMETRY_DISABLED='1'
 npm run dev
@@ -24,18 +31,11 @@ npm run preview
 
 The generated site is in `dist/`. Deploy that directory to a static staging host; no server application, database or account system is required. The preview server listens only on the local computer. Another person cannot access the local URL from their computer.
 
-## GitHub Pages preparation
+## GitHub Pages publishing
 
-The repository root is the parent of `website/`. Keep that structure when uploading to GitHub: `.github/workflows/deploy.yml` belongs at the repository root, and the Astro app and its existing `package-lock.json` belong in `website/`.
+The repository root is the parent of `website/`. The existing repository is `Giobertox/avvocato-marco-rodeghiero`; GitHub Pages is already configured with GitHub Actions. The live URL is `https://giobertox.github.io/avvocato-marco-rodeghiero/`, with Italian and English entry points at `it/` and `en/`.
 
-The configured repository is `Giobertox/avvocato-marco-rodeghiero`. Its GitHub Pages URL is `https://Giobertox.github.io/avvocato-marco-rodeghiero/`, with Italian and English entry points at `it/` and `en/` below that path.
-
-To enable Pages when ready:
-
-1. Create a GitHub repository named `avvocato-marco-rodeghiero` and upload the project structure described above to its default branch, normally `main`. Include `website/package-lock.json`; exclude `node_modules/`, `dist/`, `.astro/`, local environment files and the presentation ZIP.
-2. Open the repository's **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**.
-3. The prepared workflow uses the official `withastro/action` with `path: ./website`, Node 22, and `npm test && npm run build && npm run verify`. It runs only through `workflow_dispatch`; pushing files does not deploy.
-4. Only when ready to publish, open **Actions → Deploy Astro to GitHub Pages → Run workflow**, select the default branch and run it. This step publishes the draft. No workflow has been run as part of local preparation.
+The workflow is manual: pushing to `main` does not publish. After validating and committing an approved website change, push it and run `.github/workflows/deploy.yml` on `main` (or use **Actions → Deploy Astro to GitHub Pages → Run workflow**). The workflow runs `npm test && npm run build && npm run verify` in `website/` with Node 22 before deployment. Wait for both jobs to succeed and check the live changed pages. A documentation-only update does not need another deployment. See [HANDOFF.md](./HANDOFF.md) for the CLI commands.
 
 The build remains static, with no server adapter required. Astro prefixes its generated CSS assets with `base`. `src/utils/paths.ts` prefixes page links and public assets; use `withBase('/images/example.jpg')` for any future files placed in `public/images/`. Imported assets should use their generated Astro URLs. SVG icons are inline. Source Serif 4 regular and Source Sans 3 regular/semibold are bundled from pinned Fontsource packages using Latin subsets and `font-display: swap`. Astro generates their base-aware asset URLs. Modern browsers download approximately 51 KB of WOFF2 fonts; WOFF fallbacks are also exported. Adobe's font licences are in `public/licenses/`.
 
@@ -111,4 +111,4 @@ The layout starts with mobile styles and expands at larger widths. The mobile me
 
 The owner approved use of the supplied LinkedIn experience, education and language screenshots on 6 October 2026. The bilingual profile now includes a short biography, four education/training entries and four selected experience entries, with a simple external link to the supplied profile. Locally held review notes retain the full source history. Dates use the source's month/year values rather than calculated durations; March 2010 describes the start at the named practice, not admission to the Bar. The IUL – ISVGroup course is training and does not establish current register accreditation. Italian and English proficiency labels follow the screenshots; elementary Swedish/German are recorded in the review notes without expanding the working-language offering. The portrait supplied on 7 October 2026 accompanies the introduction without altering the approved profile facts. No professor title is added.
 
-Before a public launch, complete the professional registration and applicable notices, approve Italian and English copy, confirm every provisional profile detail, and update the staging/indexing settings together.
+Before the definitive launch, complete the professional registration and applicable notices, resolve the remaining TBC details, approve the completed Italian and English texts, and update the domain/staging/indexing settings together. The current draft is already approved and published.

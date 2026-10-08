@@ -1,6 +1,6 @@
 # Privacy notice review — 8 October 2026
 
-The bilingual draft is at `/it/privacy/` and `/en/privacy/`. It remains incomplete and is not approved as a final Article 13 notice. This review changes copy and presentation only; it does not change enquiry handling, hosting or tracking.
+The bilingual draft is at `/it/privacy/` and `/en/privacy/`. The owner approved publication of this version as a draft on 8 October 2026. The remaining TBC items are still unresolved; it is not a completed final Article 13 notice. This review changes copy and presentation only; it does not change enquiry handling, hosting or tracking.
 
 ## Confirmed facts
 
@@ -28,6 +28,7 @@ The bilingual draft is at `/it/privacy/` and `/en/privacy/`. It remains incomple
 - [Garante: rights](https://www.garanteprivacy.it/it/home/i-miei-diritti/diritti).
 - [Garante: exercising rights and response periods](https://www.garanteprivacy.it/Regolamentoue/diritti-degli-interessati).
 - [Garante: complaints](https://www.garanteprivacy.it/diritti/come-agire-per-tutelare-i-tuoi-dati-personali/reclamo/).
+- [Garante: cookie FAQ, question 12](https://www.garanteprivacy.it/faq/cookie): a banner is not required for technical-only cookies; the checked site sets no cookies or tracking storage. Reassess after hosting or third-party feature changes.
 - [Garante: cookie guidelines](https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9677876).
 - [GitHub Pages: visitor data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection).
 - [GitHub privacy statement: international transfers](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement#international-data-transfers).
@@ -36,4 +37,4 @@ The bilingual draft is at `/it/privacy/` and `/en/privacy/`. It remains incomple
 
 ## Validation
 
-Both existing tests, the 14-page static build and static verification passed (473 local references, 12 equivalent-page language switches, 14 sharing previews, zero external scripts). The bilingual notices were checked at 320, 390, 768 and 1440 px: one primary heading, eight sections/contents links, four rights list entries, six pending-operation notes, correct language/date, preserved noindex and no horizontal overflow. A fresh browser confirmed that the rights contents link scrolls below the sticky header and the language switch reaches the matching English notice. Desktop/mobile screenshots are retained in ignored `.astro/privacy-reviewed-*` files. Changes are local; no publication was performed.
+Both existing tests, the 14-page static build and static verification passed (473 local references, 12 equivalent-page language switches, 14 sharing previews, zero external scripts). The bilingual notices were checked at 320, 390, 768 and 1440 px: one primary heading, eight sections/contents links, four rights list entries, six pending-operation notes, correct language/date, preserved noindex and no horizontal overflow. A fresh browser confirmed that the rights contents link scrolls below the sticky header and the language switch reaches the matching English notice. Desktop/mobile screenshots are retained in ignored `.astro/privacy-reviewed-*` files. The owner approved publication. Application commit `e2eebcb0a1c878095e50cfaff7c7f5f23e792c9c` was pushed and [GitHub Pages run 37824473652](https://github.com/Giobertox/avvocato-marco-rodeghiero/actions/runs/37824473652) completed successfully. Live Italian/English homepages and privacy pages returned HTTP 200 at 390 px, with the correct footer links, eight notice sections, review date, no horizontal overflow and preserved noindex. A fresh browser context observed zero cookies/storage entries and requests only to the site host.
