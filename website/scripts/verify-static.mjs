@@ -32,6 +32,7 @@ const pagePairs = [
   ['it/aree-di-attivita/index.html', 'en/practice-areas/index.html'],
   ['it/traduzioni-legali/index.html', 'en/legal-translations/index.html'],
   ['it/contatti/index.html', 'en/contact/index.html'],
+  ['it/privacy/index.html', 'en/privacy/index.html'],
 ];
 const pageURL = path => new URL(basePath + path.replace(/index\.html$/, ''), site);
 
@@ -183,7 +184,7 @@ for (const file of files.filter(file => file.endsWith('.css'))) {
     await checkReference(href, sourceURL, path);
   }
 }
-if (htmlFiles.length !== 12) failures.push('Expected 12 static pages; found ' + htmlFiles.length);
-if (languageSwitches !== 10) failures.push('Expected 10 equivalent-page language switches; found ' + languageSwitches);
+if (htmlFiles.length !== 14) failures.push('Expected 14 static pages; found ' + htmlFiles.length);
+if (languageSwitches !== 12) failures.push('Expected 12 equivalent-page language switches; found ' + languageSwitches);
 console.log(JSON.stringify({ basePath, indexingEnabled, pages: htmlFiles.length, localReferences, languageSwitches, cssReferences, sharingPreviews, localScripts, externalScripts, failures }, null, 2));
 if (failures.length) process.exitCode = 1;

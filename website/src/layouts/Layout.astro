@@ -7,13 +7,13 @@ import Favicons from '../components/Favicons.astro';
 import SharingMeta from '../components/SharingMeta.astro';
 import { withBase } from '../utils/paths';
 import { indexingEnabled } from '../../config/seo.mjs';
-import { copy, routes, studio, emailLink, type Locale, type PageKey } from '../data/site';
+import { copy, routes, studio, professionalDetails, emailLink, type Locale, type PageKey } from '../data/site';
 interface Props { locale: Locale; pageKey: PageKey; title: string; description: string; forceNoIndex?: boolean; sharingURL?: string; }
 const { locale, pageKey, title, description, forceNoIndex = false, sharingURL } = Astro.props;
 const t = copy[locale];
 const other = locale === 'it' ? 'en' : 'it';
-const navKeys: PageKey[] = ['home', 'areas', 'translations', 'profile', 'contact'];
-const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', contact: 'mail', translations: 'languages', profile: 'user-round' };
+const navKeys = ['home', 'areas', 'translations', 'profile', 'contact'] as const satisfies readonly PageKey[];
+const navIcons: Record<(typeof navKeys)[number], IconName> = { home: 'house', areas: 'scale', contact: 'mail', translations: 'languages', profile: 'user-round' };
 ---
 <!doctype html>
 <html lang={locale}>
@@ -50,7 +50,7 @@ const navIcons: Record<PageKey, IconName> = { home: 'house', areas: 'scale', con
         <div class="footer-address"><Icon name="map-pin" /><div><p>{studio.address}<br />{t.city}</p><a class="text-link" href={`${routes[locale].contact}#sede`}>{t.addressLabel}</a></div></div>
         <div class="footer-contacts"><a href={studio.phoneHref}><Icon name="phone" />{studio.phone}</a><a href={emailLink()}><Icon name="mail" /><span>{studio.email}</span></a><a class="text-link" href={`${routes[locale].contact}#pec`}>{locale === 'it' ? 'PEC dello Studio' : 'Practice PEC address'}</a></div>
       </div>
-      <div class="container footer-bottom"><span>© {new Date().getUTCFullYear()} Studio Legale Avv. Marco Rodeghiero</span><a href={`${routes[locale].contact}#informazioni`}>{t.legalTitle}</a><a href={routes[other][pageKey]} lang={other}>{other === 'en' ? 'English version' : 'Versione italiana'}</a></div>
+      <div class="container footer-bottom"><span>© {new Date().getUTCFullYear()} Studio Legale Avv. Marco Rodeghiero</span><a href={`${routes[locale].contact}#informazioni`}>{professionalDetails[locale].title}</a><a href={routes[locale].privacy}>{t.nav.privacy}</a><a href={routes[other][pageKey]} lang={other}>{other === 'en' ? 'English version' : 'Versione italiana'}</a></div>
     </footer>
   </body>
 </html>

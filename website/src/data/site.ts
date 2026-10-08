@@ -2,7 +2,7 @@ import { withBase } from '../utils/paths';
 import { practiceName } from '../../lib/favicons.mjs';
 
 export type Locale = 'it' | 'en';
-export type PageKey = 'home' | 'profile' | 'areas' | 'translations' | 'contact';
+export type PageKey = 'home' | 'profile' | 'areas' | 'translations' | 'contact' | 'privacy';
 
 export const studio = {
   name: practiceName,
@@ -19,8 +19,8 @@ export const studio = {
 
 // Page generation needs paths without the base; rendered links need the base.
 export const pagePaths: Record<Locale, Record<PageKey, string>> = {
-  it: { home: '/it/', profile: '/it/profilo/', areas: '/it/aree-di-attivita/', translations: '/it/traduzioni-legali/', contact: '/it/contatti/' },
-  en: { home: '/en/', profile: '/en/profile/', areas: '/en/practice-areas/', translations: '/en/legal-translations/', contact: '/en/contact/' },
+  it: { home: '/it/', profile: '/it/profilo/', areas: '/it/aree-di-attivita/', translations: '/it/traduzioni-legali/', contact: '/it/contatti/', privacy: '/it/privacy/' },
+  en: { home: '/en/', profile: '/en/profile/', areas: '/en/practice-areas/', translations: '/en/legal-translations/', contact: '/en/contact/', privacy: '/en/privacy/' },
 };
 
 export const routes = Object.fromEntries(
@@ -32,7 +32,7 @@ export const routes = Object.fromEntries(
 
 export const copy = {
   it: {
-    nav: { home: 'Home', profile: 'Profilo', areas: 'Aree di attività', translations: 'Traduzioni giuridiche', contact: 'Contatti' },
+    nav: { home: 'Home', profile: 'Profilo', areas: 'Aree di attività', translations: 'Traduzioni giuridiche', contact: 'Contatti', privacy: 'Informativa privacy' },
     stage: 'Anteprima di progetto', stageDetail: 'Testi e profilo in revisione · Non è il sito definitivo',
     skip: 'Vai al contenuto', menu: 'Menu', close: 'Chiudi menu', call: 'Chiama lo Studio', email: 'Scrivi un’email', appointment: 'Richiedi un appuntamento',
     eyebrow: 'Studio legale · Vicenza', hero: 'Studio legale a Vicenza',
@@ -63,13 +63,13 @@ export const copy = {
     translationSteps: ["Indica la lingua del testo e quella della traduzione.","Descrivi il documento, l’uso previsto e l’eventuale scadenza.","Attendi la conferma dello Studio su disponibilità, tempi e modalità."],
     requestTitle: 'Come richiedere una traduzione', appointmentSubject: 'Richiesta di appuntamento', translationSubject: 'Richiesta di traduzione giuridica',
     translationContactTitle: "Richiedi una traduzione giuridica", translationContactText: "Invia un’email con una breve descrizione del documento e la scadenza, se prevista.",
-    legalTitle: 'Informazioni professionali e privacy', legalText: "TBC · Da confermare. Questa bozza riguarda il sito e i contatti iniziali con lo Studio. I dati professionali e le modalità di trattamento devono essere verificati e approvati prima della pubblicazione definitiva.", footerLine: 'Diritto civile · Traduzioni giuridiche italiano e inglese', back: 'Torna alla home', notFound: 'Pagina non trovata', notFoundText: "La pagina non è disponibile o il collegamento è cambiato. Torna alla pagina iniziale.",
+    privacyDescription: "Informativa privacy sul sito e sui contatti iniziali con lo Studio.", privacyIntro: "Questa bozza presenta le informazioni verificate sul sito e sui contatti iniziali. Le parti contrassegnate TBC devono essere completate prima di utilizzare il testo come informativa definitiva.", privacyContents: "Indice dell’informativa", privacyReviewed: "Ultima revisione della bozza: 8 ottobre 2026", footerLine: 'Diritto civile · Traduzioni giuridiche italiano e inglese', back: 'Torna alla home', notFound: 'Pagina non trovata', notFoundText: "La pagina non è disponibile o il collegamento è cambiato. Torna alla pagina iniziale.",
     country: 'Italia', city: '36100 Vicenza (VI), Italia',
     translationDocumentsDraft: 'Esempi proposti: contratti, atti giudiziari e documenti societari.',
     translationDocumentsNote: 'TBC · Tipologie di documenti da confermare con lo Studio.',
   },
   en: {
-    nav: { home: 'Home', profile: 'Profile', areas: 'Practice areas', translations: 'Legal translations', contact: 'Contact' },
+    nav: { home: 'Home', profile: 'Profile', areas: 'Practice areas', translations: 'Legal translations', contact: 'Contact', privacy: 'Privacy notice' },
     stage: 'Design preview', stageDetail: 'Copy and profile under review · Draft website',
     skip: 'Skip to content', menu: 'Menu', close: 'Close menu', call: 'Call the practice', email: 'Send an email', appointment: 'Request an appointment',
     eyebrow: 'Legal practice · Vicenza, Italy', hero: "Legal assistance in Italy, in Italian and English",
@@ -100,7 +100,7 @@ export const copy = {
     translationSteps: ["Specify the original language and the language you need.","Describe the document, its intended use and any deadline.","Wait for the office to confirm availability, timing and arrangements."],
     requestTitle: 'Requesting a translation', appointmentSubject: 'Appointment enquiry', translationSubject: 'Legal translation enquiry',
     translationContactTitle: "Request a legal translation", translationContactText: "Email a brief description of your document and any deadline.",
-    legalTitle: 'Professional information and privacy', legalText: "TBC · To be confirmed. This draft covers the website and initial enquiries to the office. Professional details and data handling arrangements must be checked and approved before final publication.", footerLine: 'Italian civil law · Italian and English legal translations', back: 'Back to home', notFound: 'Page not found', notFoundText: "This page is unavailable or the link has changed. Return to the homepage.",
+    privacyDescription: "Privacy notice covering the website and initial enquiries to the office.", privacyIntro: "This draft sets out verified information about the website and initial enquiries. Sections marked TBC must be completed before this text can serve as the final privacy notice.", privacyContents: "Notice contents", privacyReviewed: "Draft last reviewed: 8 October 2026", footerLine: 'Italian civil law · Italian and English legal translations', back: 'Back to home', notFound: 'Page not found', notFoundText: "This page is unavailable or the link has changed. Return to the homepage.",
     country: 'Italy', city: '36100 Vicenza (VI), Italy',
     translationDocumentsDraft: 'Suggested examples: contracts, court documents and company documents.',
     translationDocumentsNote: 'TBC · Accepted document types to be confirmed by the office.',
@@ -157,72 +157,256 @@ export const areas = {
 };
 
 // Draft standard wording: every section remains TBC until factual and legal review.
-export const legalDetails = {
+export const professionalDetails = {
+  "it": {
+    "title": "Informazioni professionali",
+    "text": "Studio Legale Avv. Marco Rodeghiero, Contrà Pusterla 12, 36100 Vicenza (VI), Italia. Professione: avvocato. Ordine di appartenenza e numero di iscrizione: TBC. Partita IVA: TBC.",
+    "note": "TBC · Confermare i dati di iscrizione e fiscali e i riferimenti alle regole professionali applicabili."
+  },
+  "en": {
+    "title": "Professional information",
+    "text": "Studio Legale Avv. Marco Rodeghiero, Contrà Pusterla 12, 36100 Vicenza (VI), Italy. Profession: Italian lawyer (avvocato). Bar association and registration number: TBC. VAT number: TBC.",
+    "note": "TBC · Confirm registration and tax details and references to the applicable professional rules."
+  }
+} as const;
+
+// Verified website facts and owner-confirmed controller; unresolved operations remain TBC.
+export interface PrivacySection {
+  id: string;
+  title: string;
+  paragraphs: readonly string[];
+  items?: readonly string[];
+  after?: readonly string[];
+  note?: string;
+  links?: readonly { label: string; url: string }[];
+}
+export const privacyReviewDate = '2026-10-08';
+export const privacyDetails: Record<Locale, readonly PrivacySection[]> = {
   "it": [
     {
-      "title": "Informazioni professionali",
-      "text": "Studio Legale Avv. Marco Rodeghiero, Contrà Pusterla 12, 36100 Vicenza (VI), Italia. Professione: avvocato. Ordine di appartenenza e numero di iscrizione: TBC. Partita IVA: TBC.",
-      "note": "TBC · Confermare i dati di iscrizione e fiscali e i riferimenti alle regole professionali applicabili."
+      "id": "titolare",
+      "title": "Titolare del trattamento e contatti",
+      "paragraphs": [
+        "Il titolare del trattamento è l’Avv. Marco Rodeghiero, con sede presso lo Studio in Contrà Pusterla 12, 36100 Vicenza (VI), Italia.",
+        "Puoi contattare il titolare all’indirizzo marcorodeghiero@gmail.com, anche per richieste relative ai tuoi dati personali. Telefono: +39 340 677 9043. PEC: marco.rodeghiero@ordineavvocativicenza.it."
+      ],
+      "note": "TBC · Verificare se è stato nominato un responsabile della protezione dei dati (RPD/DPO) e, in tal caso, indicarne i contatti."
     },
     {
-      "title": "Titolare e contatti privacy",
-      "text": "Il titolare del trattamento è l’Avv. Marco Rodeghiero, presso la sede dello Studio. Per richieste sui dati personali: marcorodeghiero@gmail.com.",
-      "note": "TBC · Confermare l’identità del titolare e l’eventuale referente privacy."
+      "id": "contatti",
+      "title": "Ambito, dati comunicati e finalità dei contatti",
+      "paragraphs": [
+        "Questa bozza riguarda la navigazione del sito e il primo contatto con lo Studio. Non descrive il trattamento dei dati nell’ambito di un incarico professionale.",
+        "Il sito non contiene moduli di contatto o di prenotazione. I pulsanti email aprono il programma di posta: il messaggio viene inviato solo quando scegli di inviarlo. Le richieste di appuntamento arrivano via telefono o email e sono confermate direttamente dallo Studio.",
+        "Se contatti lo Studio, comunichi i dati che scegli di includere, come nome, recapiti, contenuto del messaggio ed eventuali allegati. Il primo contatto serve a richiedere informazioni sui servizi o a concordare un colloquio. Puoi consultare il sito senza inviare una richiesta; per ricevere una risposta occorrono informazioni e recapiti sufficienti."
+      ],
+      "note": "TBC · Confermare le finalità effettive e la base giuridica di ciascun trattamento dei contatti. Verificare anche il trattamento di eventuali dati di terzi, categorie particolari di dati o dati relativi a condanne penali e reati presenti nelle richieste."
     },
     {
-      "title": "Dati, finalità e base giuridica",
-      "text": "Nome, recapiti e informazioni forniti via email o telefono sono utilizzati per rispondere alle richieste e organizzare appuntamenti. La base proposta è l’esecuzione di misure precontrattuali richieste dall’interessato, ai sensi dell’art. 6, par. 1, lett. b), GDPR. Il conferimento è facoltativo, ma senza recapiti o informazioni sufficienti potrebbe non essere possibile rispondere.",
-      "note": "TBC · Verificare finalità e basi giuridiche effettive. Il trattamento relativo a un incarico professionale richiede un’informativa dedicata."
+      "id": "navigazione",
+      "title": "Dati di navigazione e hosting",
+      "paragraphs": [
+        "L’anteprima pubblicata è ospitata su GitHub Pages. La documentazione del servizio indica che GitHub registra e conserva l’indirizzo IP dei visitatori per finalità di sicurezza, anche quando non accedono a un account GitHub.",
+        "L’assenza di strumenti di analisi nel sito non elimina questo trattamento del servizio di hosting."
+      ],
+      "links": [
+        {
+          "label": "GitHub Pages: raccolta dei dati",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection"
+        }
+      ],
+      "note": "TBC · Completare la descrizione dei dati tecnici, delle finalità e delle basi giuridiche applicabili all’hosting effettivamente utilizzato, verificando i ruoli dello Studio e del fornitore. Aggiornare questa sezione se cambia l’hosting."
     },
     {
-      "title": "Conservazione e destinatari",
-      "text": "I dati sono conservati per il tempo necessario a gestire la richiesta e adempiere agli obblighi applicabili. Possono essere trattati da persone autorizzate e da fornitori di servizi necessari alla gestione dei contatti.",
-      "note": "TBC · Precisare tempi o criteri di conservazione, destinatari, ruoli dei fornitori ed eventuali trasferimenti fuori dallo Spazio economico europeo con le relative garanzie."
+      "id": "cookie",
+      "title": "Cookie e servizi esterni",
+      "paragraphs": [
+        "Nella versione attuale il sito non integra strumenti di analisi, pubblicità, pixel di tracciamento, mappe o contenuti social incorporati. Immagini e caratteri sono serviti dal sito. Il codice del sito non imposta cookie né salva dati nel local storage o nel session storage del browser.",
+        "Google Maps e LinkedIn sono disponibili come collegamenti esterni. Se apri un collegamento, accedi al servizio del relativo fornitore, al quale si applica la sua informativa privacy."
+      ],
+      "links": [
+        {
+          "label": "Informativa privacy di Google",
+          "url": "https://policies.google.com/privacy?hl=it"
+        },
+        {
+          "label": "Informativa privacy di LinkedIn",
+          "url": "https://www.linkedin.com/legal/privacy-policy"
+        }
+      ]
     },
     {
-      "title": "I tuoi diritti",
-      "text": "Nei casi previsti dal GDPR puoi chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, opporti al trattamento e revocare il consenso quando costituisce la base giuridica. Puoi scrivere al recapito privacy e presentare un reclamo al Garante per la protezione dei dati personali.",
-      "note": "TBC · Confermare le modalità di esercizio dei diritti e indicare eventuali processi decisionali automatizzati, se presenti."
+      "id": "destinatari",
+      "title": "Fornitori, destinatari e trasferimenti",
+      "paragraphs": [
+        "I servizi identificati per questa versione sono GitHub Pages per l’hosting e Gmail per l’indirizzo email pubblicato.",
+        "L’informativa di GitHub descrive trattamenti in diversi Paesi, inclusi gli Stati Uniti. Questa indicazione riguarda il fornitore e non sostituisce la verifica degli accordi e delle garanzie applicabili allo Studio."
+      ],
+      "links": [
+        {
+          "label": "Informativa privacy di GitHub",
+          "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement#international-data-transfers"
+        }
+      ],
+      "note": "TBC · Confermare chi accede alle richieste, gli altri fornitori e destinatari effettivi, i rispettivi ruoli, eventuali accordi di trattamento e i trasferimenti fuori dallo Spazio economico europeo con le garanzie applicabili."
     },
     {
-      "title": "Navigazione e servizi esterni",
-      "text": "Il sito non integra moduli di contatto, strumenti di analisi o mappe incorporate. I link a Google Maps e LinkedIn aprono servizi esterni, che trattano i dati secondo le proprie informative. Il servizio di hosting può registrare dati tecnici di navigazione.",
-      "note": "TBC · Verificare dati e registri del provider di hosting, relative finalità, basi giuridiche, conservazione e l’eventuale uso di cookie."
+      "id": "conservazione",
+      "title": "Tempi di conservazione",
+      "paragraphs": [
+        "I tempi o i criteri effettivi di conservazione delle richieste e dei dati tecnici non sono ancora confermati per questa bozza."
+      ],
+      "note": "TBC · Indicare separatamente i tempi o i criteri per i contatti senza successivo incarico, le richieste che danno origine a un incarico e i dati tecnici di hosting, compresi gli eventuali obblighi di conservazione applicabili."
+    },
+    {
+      "id": "diritti",
+      "title": "Diritti e modalità di esercizio",
+      "paragraphs": [
+        "Nei casi e alle condizioni previsti dal GDPR, puoi esercitare i seguenti diritti:"
+      ],
+      "items": [
+        "Accesso ai dati e rettifica o integrazione dei dati inesatti o incompleti.",
+        "Cancellazione e limitazione del trattamento, quando ne ricorrono i presupposti.",
+        "Opposizione nei casi previsti; portabilità per trattamenti automatizzati basati sul consenso o su un contratto.",
+        "Revoca del consenso, quando il trattamento si fonda su di esso, senza pregiudicare la liceità del trattamento precedente."
+      ],
+      "after": [
+        "Puoi inviare la richiesta al titolare all’indirizzo marcorodeghiero@gmail.com. Il GDPR prevede un riscontro entro un mese; il termine può essere prorogato di altri due mesi se necessario per la complessità o il numero delle richieste, dandone comunicazione motivata entro il primo mese.",
+        "Se ritieni che il trattamento violi la normativa, puoi presentare un reclamo al Garante per la protezione dei dati personali. Il reclamo non richiede di attendere una risposta dello Studio."
+      ],
+      "links": [
+        {
+          "label": "I diritti spiegati dal Garante",
+          "url": "https://www.garanteprivacy.it/it/home/i-miei-diritti/diritti"
+        },
+        {
+          "label": "Come presentare un reclamo al Garante",
+          "url": "https://www.garanteprivacy.it/diritti/come-agire-per-tutelare-i-tuoi-dati-personali/reclamo/"
+        }
+      ]
+    },
+    {
+      "id": "decisioni",
+      "title": "Profilazione e decisioni automatizzate",
+      "paragraphs": [
+        "Il sito non integra strumenti di profilazione o sistemi che decidono automaticamente sulle richieste di assistenza."
+      ],
+      "note": "TBC · Verificare separatamente se la gestione dei contatti o i servizi utilizzati dallo Studio comportano decisioni basate unicamente su trattamenti automatizzati con effetti giuridici o analogamente significativi e, se presenti, descriverle."
     }
   ],
   "en": [
     {
-      "title": "Professional information",
-      "text": "Studio Legale Avv. Marco Rodeghiero, Contrà Pusterla 12, 36100 Vicenza (VI), Italy. Profession: Italian lawyer (avvocato). Bar association and registration number: TBC. VAT number: TBC.",
-      "note": "TBC · Confirm registration and tax details and references to the applicable professional rules."
+      "id": "titolare",
+      "title": "Data controller and contact details",
+      "paragraphs": [
+        "The data controller is Avv. Marco Rodeghiero, at the office address: Contrà Pusterla 12, 36100 Vicenza (VI), Italy.",
+        "You can contact the controller at marcorodeghiero@gmail.com, including for enquiries about your personal data. Telephone: +39 340 677 9043. PEC (Italian certified email): marco.rodeghiero@ordineavvocativicenza.it."
+      ],
+      "note": "TBC · Check whether a data protection officer (DPO) has been appointed and, if so, provide their contact details."
     },
     {
-      "title": "Data controller and privacy contact",
-      "text": "The data controller is Avv. Marco Rodeghiero, at the office address. For enquiries about personal data, email marcorodeghiero@gmail.com.",
-      "note": "TBC · Confirm the controller’s identity and any designated privacy contact."
+      "id": "contatti",
+      "title": "Scope, information provided and enquiry purposes",
+      "paragraphs": [
+        "This draft covers browsing the website and initial contact with the office. It does not describe data processing during a professional engagement.",
+        "The website has no contact or booking forms. Email buttons open your email application: a message is sent only when you choose to send it. Appointment requests are made by telephone or email and confirmed directly by the office.",
+        "When you contact the office, you provide the information you choose to include, such as your name, contact details, message and any attachments. Initial contact allows you to ask about services or arrange a meeting. You can browse without making an enquiry; sufficient information and contact details are needed for a reply."
+      ],
+      "note": "TBC · Confirm the actual purposes and legal basis for each enquiry-related processing activity. Also check the handling of any information about other people, special categories of data or criminal convictions and offences included in enquiries."
     },
     {
-      "title": "Data, purposes and legal basis",
-      "text": "Your name, contact details and information provided by email or telephone are used to answer enquiries and arrange appointments. The proposed legal basis is taking steps at your request before entering into a contract, under Article 6(1)(b) GDPR. Providing information is optional, but the office may be unable to respond without sufficient details.",
-      "note": "TBC · Verify actual purposes and legal bases. Data processing for a professional engagement requires a separate privacy notice."
+      "id": "navigazione",
+      "title": "Browsing data and hosting",
+      "paragraphs": [
+        "The published preview is hosted on GitHub Pages. Its documentation states that GitHub records and retains visitors’ IP addresses for security, including when visitors are not signed into a GitHub account.",
+        "The absence of website analytics does not remove this processing by the hosting service."
+      ],
+      "links": [
+        {
+          "label": "GitHub Pages: data collection",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection"
+        }
+      ],
+      "note": "TBC · Complete the description of technical data, purposes and legal bases for the hosting actually used, checking the roles of the practice and provider. Update this section if hosting changes."
     },
     {
-      "title": "Retention and recipients",
-      "text": "Data is kept for as long as needed to handle your enquiry and meet applicable obligations. Authorised people and service providers needed to manage enquiries may process it.",
-      "note": "TBC · Specify retention periods or criteria, recipients, providers’ roles and any transfers outside the European Economic Area and safeguards."
+      "id": "cookie",
+      "title": "Cookies and external services",
+      "paragraphs": [
+        "The current website does not integrate analytics, advertising, tracking pixels, embedded maps or embedded social content. Images and fonts are served by the website. Its code does not set cookies or save data in the browser’s local storage or session storage.",
+        "Google Maps and LinkedIn are available as external links. Opening a link takes you to the provider’s service, where its own privacy notice applies."
+      ],
+      "links": [
+        {
+          "label": "Google privacy policy",
+          "url": "https://policies.google.com/privacy?hl=en"
+        },
+        {
+          "label": "LinkedIn privacy policy",
+          "url": "https://www.linkedin.com/legal/privacy-policy"
+        }
+      ]
     },
     {
-      "title": "Your rights",
-      "text": "Where provided by the GDPR, you can request access, correction, deletion, restriction and portability of your data, object to processing and withdraw consent where it is the legal basis. Contact the privacy email address to exercise your rights. You can also complain to the Italian data protection authority, the Garante per la protezione dei dati personali.",
-      "note": "TBC · Confirm how rights requests are handled and explain any automated decision-making, if used."
+      "id": "destinatari",
+      "title": "Providers, recipients and international transfers",
+      "paragraphs": [
+        "The services identified for this version are GitHub Pages for hosting and Gmail for the published email address.",
+        "GitHub’s privacy statement describes processing in several countries, including the United States. This information concerns the provider and does not replace checking the arrangements and safeguards applicable to the practice."
+      ],
+      "links": [
+        {
+          "label": "GitHub privacy statement",
+          "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement#international-data-transfers"
+        }
+      ],
+      "note": "TBC · Confirm who can access enquiries, other actual providers and recipients, their roles, any data processing agreements and transfers outside the European Economic Area with the applicable safeguards."
     },
     {
-      "title": "Browsing and external services",
-      "text": "The website has no contact forms, analytics tools or embedded maps. Google Maps and LinkedIn links open external services with their own privacy notices. The hosting provider may record technical browsing data.",
-      "note": "TBC · Verify the hosting provider’s data and logs, purposes, legal bases, retention and any cookies."
+      "id": "conservazione",
+      "title": "Retention periods",
+      "paragraphs": [
+        "The actual retention periods or criteria for enquiries and technical data have not yet been confirmed for this draft."
+      ],
+      "note": "TBC · Specify separately the periods or criteria for enquiries that do not lead to an engagement, enquiries that do, and hosting data, including any applicable retention obligations."
+    },
+    {
+      "id": "diritti",
+      "title": "Your rights and how to exercise them",
+      "paragraphs": [
+        "Where the GDPR provides for them and its conditions are met, you can exercise these rights:"
+      ],
+      "items": [
+        "Access to your data and correction or completion of inaccurate or incomplete information.",
+        "Erasure and restriction of processing where the relevant conditions apply.",
+        "Objection where provided by law; portability for automated processing based on consent or a contract.",
+        "Withdrawal of consent where processing relies on it, without affecting the lawfulness of earlier processing."
+      ],
+      "after": [
+        "You can send your request to the controller at marcorodeghiero@gmail.com. The GDPR requires a response within one month; this can be extended by two further months where necessary because of the complexity or number of requests, with reasons given within the first month.",
+        "If you believe processing breaches data protection law, you can complain to the Italian data protection authority, the Garante per la protezione dei dati personali. You do not need to wait for the office to reply before complaining."
+      ],
+      "links": [
+        {
+          "label": "Rights explained by the Garante (Italian)",
+          "url": "https://www.garanteprivacy.it/it/home/i-miei-diritti/diritti"
+        },
+        {
+          "label": "How to complain to the Garante (Italian)",
+          "url": "https://www.garanteprivacy.it/diritti/come-agire-per-tutelare-i-tuoi-dati-personali/reclamo/"
+        }
+      ]
+    },
+    {
+      "id": "decisioni",
+      "title": "Profiling and automated decisions",
+      "paragraphs": [
+        "The website does not integrate profiling tools or systems that automatically decide on requests for legal assistance."
+      ],
+      "note": "TBC · Check separately whether enquiry handling or the practice’s services involve decisions based solely on automated processing with legal or similarly significant effects and, if so, describe them."
     }
   ]
-} as const;
+};
 
 export function emailLink(subject?: string) {
   return `mailto:${studio.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`;
